@@ -1,0 +1,85 @@
+{
+    "color" : {
+        "background": {
+            "value": "#E9EDFC"
+        },
+        "foreground": {
+            "value": "#EDEDED"
+        },
+        "black": {
+            "value": "#121212"
+        },
+        "white": {
+            "value": "#F2EED8"
+        },
+        "blue": {
+            "value": "#2649E5"
+        }
+    },
+    "spacing": {
+        "xs": {
+            "value": "4px",
+            "type" : "dimension"
+        },
+        "sm": {
+            "value": "8px",
+            "type" : "dimension"
+        },
+        "md": {
+            "value": "16px",
+            "type" : "dimension"
+        },
+        "lg": {
+            "value": "24px",
+            "type" : "dimension"
+        },
+        "xl": {
+            "value": "32px",
+            "type" : "dimension"
+        }
+    },
+    "padding": {
+        "xs": {
+            "value": "4px",
+            "type": "dimension"
+        },
+        "sm": {
+            "value": "8px",
+            "type": "dimension"
+        },
+        "md": {
+            "value": "16px",
+            "type": "dimension"
+        },
+        "lg": {
+            "value": "24px",
+            "type": "dimension"
+        },
+        "xl": {
+            "value": "32px",
+            "type": "dimension"
+        }
+    },
+    "margin": {
+        "xs": {
+            "value": "4px",
+            "type": "dimension"
+        },
+        "sm": {
+            "value": "8px",
+            "type": "dimension"
+        },
+        "md": {
+            "value": "16px",
+            "type": "dimension"
+        },
+        "lg": {
+            "value": "24px",
+            "type": "dimension"
+        },
+        "xl": {
+            "value": "32px",
+            "type": "dimension"
+        }
+    }
+}
