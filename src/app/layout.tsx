@@ -4,7 +4,8 @@ import { Inter_Tight } from 'next/font/google'
 import 'vcs.design-css'
 
 const interTight = Inter_Tight({
-  subsets: ['latin'],
+  subsets : ['latin'],
+  variable: '--font-inter-tight'
 })
 
 export const metadata: Metadata = {
