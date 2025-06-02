@@ -1,7 +1,9 @@
 import { GLOBAL } from 'vcs'
 import type { Metadata } from "next"
 import { Inter_Tight } from 'next/font/google'
+
 import 'vcs.design-css'
+import 'vcs.design-gen-css'
 
 const interTight = Inter_Tight({
   subsets : ['latin'],
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang='en'>
+    <html lang="en" className={'dark'} suppressHydrationWarning>
       <body className={`${interTight.className} antialiased`}>{children}</body>
     </html>
   )
