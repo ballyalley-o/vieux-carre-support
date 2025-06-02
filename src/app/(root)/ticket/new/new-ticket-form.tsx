@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { FaAngleDown, FaAngleUp, FaCircle } from "react-icons/fa"
-// import { PRIORITY } from 'lib/constant'
 import { transl } from 'lib/utility/translate'
 
 
