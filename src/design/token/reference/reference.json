@@ -4,7 +4,7 @@
             "value": "#E9EDFC"
         },
         "foreground": {
-            "value": "#EDEDED"
+            "value": "#121212"
         },
         "black": {
             "value": "#121212"
@@ -14,72 +14,97 @@
         },
         "blue": {
             "value": "#2649E5"
+        },
+        "light-blue": {
+            "value": "#D4DBFA"
+        },
+        "dark-blue": {
+            "value": "#040717"
+        },
+        "green": {
+            "value": "#8DEB00"
+        },
+        "yellow": {
+            "value": "#FEE100"
+        },
+        "orange": {
+            "value": "#FD7700"
+        },
+        "red": {
+            "value": "#EF000E"
+        },
+        "dark-red": {
+            "value": "#C30000"
         }
     },
-    "spacing": {
-        "xs": {
-            "value": "4px",
-            "type" : "dimension"
-        },
-        "sm": {
-            "value": "8px",
-            "type" : "dimension"
-        },
-        "md": {
-            "value": "16px",
-            "type" : "dimension"
-        },
-        "lg": {
-            "value": "24px",
-            "type" : "dimension"
-        },
-        "xl": {
-            "value": "32px",
-            "type" : "dimension"
-        }
+    "radius": {
+        "value": "0.5rem",
+        "type" : "dimension"
     },
     "padding": {
         "xs": {
             "value": "4px",
-            "type": "dimension"
+            "type" : "dimension"
         },
         "sm": {
             "value": "8px",
-            "type": "dimension"
+            "type" : "dimension"
         },
         "md": {
             "value": "16px",
-            "type": "dimension"
+            "type" : "dimension"
         },
         "lg": {
             "value": "24px",
-            "type": "dimension"
+            "type" : "dimension"
         },
         "xl": {
             "value": "32px",
-            "type": "dimension"
+            "type" : "dimension"
         }
     },
     "margin": {
         "xs": {
             "value": "4px",
-            "type": "dimension"
+            "type" : "dimension"
         },
         "sm": {
             "value": "8px",
-            "type": "dimension"
+            "type" : "dimension"
         },
         "md": {
             "value": "16px",
-            "type": "dimension"
+            "type" : "dimension"
         },
         "lg": {
             "value": "24px",
-            "type": "dimension"
+            "type" : "dimension"
         },
         "xl": {
             "value": "32px",
-            "type": "dimension"
+            "type" : "dimension"
+        }
+    },
+    "logo": {
+        "xs": {
+            "value": "18px",
+            "type" : "dimension"
+        },
+        "sm": {
+            "value": "24px",
+            "type" : "dimension"
+        },
+        "md": {
+            "value": "30px",
+            "type" : "dimension"
+        },
+        "lg": {
+            "value": "36px",
+            "type" : "dimension"
+        },
+        "xl": {
+            "value": "42px",
+            "type" : "dimension"
         }
     }
 }
