@@ -1,15 +1,73 @@
 @import './token.css';
 @import "tailwindcss";
 
+.logo-home {
+  width : var(--logo-xl);
+  height: var(--logo-xl);
+  @apply relative;
+}
+
+.input-default {
+  @apply p-3 border border-vcsblue-light rounded-sm focus:ring-vcsblue
+}
+
+@theme {
+  --color-vcsblue        : var(--color-blue);
+  --color-vcsblue-light  : var(--color-light-blue);
+  --color-background     : var(--color-background);
+  --color-foreground     : var(--color-foreground);
+  --color-black          : var(--color-black);
+  --color-white          : var(--color-white);
+  --color-vcsgreen       : var(--color-green);
+  --color-vcsyellow      : var(--color-yellow);
+  --color-vcsred         : var(--color-red);
+  --color-vcsred-dark    : var(--color-dark-red);
+  --color-priority-low   : var(--color-vcsgreen);
+  --color-priority-medium: var(--color-vcsyellow);
+  --color-priority-high  : var(--color-vcsred);
+  --radius-sm            : calc(var(--radius) - 6px);
+  --radius-sm            : calc(var(--radius) - 4px);
+  --radius-md            : calc(var(--radius) - 2px);
+  --radius-lg            : calc(var(--radius) - 0.5px);
+  --radius-xl            : var(--radius);
+  --spacing-xs           : var(--spacing-xs);
+  --spacing-sm           : var(--spacing-sm);
+  --spacing-md           : var(--spacing-md);
+  --spacing-lg           : var(--spacing-lg);
+  --spacing-xl           : var(--spacing-xl);
+  --logo-xs              : var(--logo-xs);
+  --logo-sm              : var(--logo-xs);
+  --logo-md              : var(--logo-md);
+  --logo-lg              : var(--logo-lg);
+  --logo-xl              : var(--logo-xl);
+}
+
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter-tight);
-  --font-mono: var(--font-inter-tight);
+  --color-background: var(--color-dark-blue);
+  --color-foreground: var(--color-foreground);
+  --font-sans       : var(--font-inter-tight);
+  --font-mono       : var(--font-inter-tight);
 }
 
 body {
-  background : var(--background);
-  color      : var(--foreground);
+  background : var(--color-gray-50);
+  color      : var(--color-foreground);
   font-family: Inter, Helvetica, sans-serif;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity  : 0;
+    transform: translateY(20px)
+  }
+
+  100% {
+    opacity  : 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide {
+  animation      : slideUp 0.6s ease-in forwards;
+  animation-delay: 0.2;
 }
