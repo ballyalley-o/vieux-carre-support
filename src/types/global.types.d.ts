@@ -6,5 +6,5 @@ declare global {
 
     declare type AppLogLevelType = 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug'
     declare type AppResponseType = Promise<AppResponse>
-
+    declare type AppButtonType   = 'submit' | 'reset' | 'button' | undefined
 }
