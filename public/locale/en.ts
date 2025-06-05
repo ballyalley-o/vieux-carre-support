@@ -696,7 +696,7 @@ export const en = {
     label: 'Your Bag'
   },
   your_ticket: {
-    label : 'Your Ticket',
+    label: 'Your Ticket',
     plural: 'Your Tickets'
   },
   zero_results: {
@@ -737,6 +737,7 @@ export const en = {
     created: 'Document created',
     deleted: 'Document deleted',
     updated: 'Document updated',
+    created_default: `[CREATED]: Successful ({value}: {id})`,
     file_deleted: 'File deleted',
     order_created: 'Order created',
     order_deleted: 'Order deleted',
@@ -756,6 +757,7 @@ export const en = {
   error: {
     bag_empty: 'Bag is empty',
     bag_not_found: 'Bag not found',
+    create_ticket: `An error occured while creating the ticket`,
     failed_extraction_file_key: 'Failed extracting the file key, [ERR]: ',
     gallery_save: 'An error occurred while saving the gallery',
     invalid_credentials: 'Invalid credentials',
@@ -765,6 +767,7 @@ export const en = {
     failed_extract_file_key: 'Failed extracting the file key',
     failed_delete_file: 'Failed to delete file',
     form: 'Please fix form errors before submitting.',
+    missing_field: 'Required field/s missing',
     no_file: 'No file',
     no_existing_item: 'No existing item to add on',
     no_shipping_address: 'No shipping address',
@@ -784,6 +787,7 @@ export const en = {
     update_order_paid: 'updateOrderToPaid failed',
     user_not_authenticated: 'User not authenticated',
     user_not_authorized: 'User not authorized',
-    user_not_found: 'User not found'
+    user_not_found: 'User not found',
+    validation_error: `Validation Error: {error}`
   }
 }
