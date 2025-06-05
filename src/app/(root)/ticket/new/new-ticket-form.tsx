@@ -1,14 +1,13 @@
 'use client'
 
 import { Fragment, JSX, useActionState, useState } from "react"
-import { useFormStatus } from "react-dom"
 import { TicketPriority } from 'generated/prisma'
 import { createTicket } from "action/ticket.action"
 import { FaCircle } from "react-icons/fa"
 import { FormSelect } from 'component/shared/form'
 import { Button } from 'component/shared/button'
 import { RESPONSE } from "lib/constant"
-import { cn, delay, transl } from 'lib/utility'
+import { cn, transl } from 'lib/utility'
 
 interface NewTicketFormProps {
   action: typeof createTicket
@@ -21,7 +20,6 @@ const NewTicketForm = ({ action }: NewTicketFormProps) => {
     const [selectedPriority, setSelectedPriority] = useState<PriorityKeyType>('low')
     const [selectOpen, setSelectOpen]             = useState(false)
     const [state, formAction]                     = useActionState(action, RESPONSE.DEFAULT)
-    const { pending }                             = useFormStatus()
 
     const priorityOptions: PriortySelectType = [
       { id: 0, name: 'low', color: 'text-priority-low', value: 'LOW', icon: <FaCircle className={cn(`text-lg`, `text-priority-low`)} /> },
@@ -61,7 +59,7 @@ const NewTicketForm = ({ action }: NewTicketFormProps) => {
               </ul>
             )}
           />
-          <Button pending={pending} label={transl('submit.label')}/>
+          <Button label={transl('submit.label')}/>
         </form>
       </div>
     )
