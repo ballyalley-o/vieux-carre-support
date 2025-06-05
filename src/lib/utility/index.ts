@@ -1,6 +1,7 @@
 export * from './app-logger'
 export * from './cn'
 export * from './combine'
+export * from './delay'
 export * from './error-handler'
 export * from './formatter'
 export * from './translate'
