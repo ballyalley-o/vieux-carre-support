@@ -24,7 +24,7 @@ const locales = { en, fr, es }
  * @returns The localized message with placeholders replaced, or the original key if
  *          the message is not found or is not a string.
  */
-export const transl = (key: LocaleKey, params?: Record<string, object>, locale: LocaleLang = 'en'): string => {
+export const transl = (key: LocaleKey, params?: Record<string, string | number | boolean>, locale: LocaleLang = 'en'): string => {
   const messages = locales[locale] || locales['en']
   const message = key
     .split('.')
