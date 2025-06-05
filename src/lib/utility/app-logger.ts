@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import * as Sentry from '@sentry/nextjs'
+import { SeverityLevel } from '@sentry/nextjs'
 import { CODE, RESPONSE } from 'lib/constant'
 import { errorHandler } from 'lib/utility'
 
-const TAG_FORMAT = (tag: string) => `[${tag}]`
+const TAG_FORMAT  = (tag: string) => `[${tag}]`
 const TAG_DEFAULT = 'NO_TAG'
 
 class AppLogger {
@@ -29,8 +31,22 @@ class AppLogger {
     console.error(`ERROR: ${errorRaw}`, `TAG: ${TAG_FORMAT(tag)}`, targetLineInfo, content)
   }
 
-  public response(message: string, code?: CODE, _tag: string = TAG_DEFAULT, redirectTo?: string, data?: unknown) {
-    return RESPONSE.SUCCESS(message, code, redirectTo, data)
+  public sentryLogEvent(message: string, category: string = 'general', data?: Record<string, unknown>, level: SeverityLevel = 'info', error?: unknown) {
+    Sentry.addBreadcrumb({ category, message, data, level })
+
+    if (error) {
+      Sentry.captureException(error, { extra: data })
+    } else {
+      Sentry.captureMessage(message, level)
+    }
+  }
+
+  public response(success: boolean, message: string, code?: CODE, data?: unknown) {
+    return RESPONSE.RESPONSE(success, message, code, data)
+  }
+
+  public redirectResponse(message: string, code?: CODE, redirectTo?: string, data?: unknown) {
+    return RESPONSE.SUCCESS_REDIRECT(message, code, redirectTo, data)
   }
 
   public errorResponse(error: AppError | string, code: CODE, _tag: string = TAG_DEFAULT, redirectTo?: string, data?: unknown) {
