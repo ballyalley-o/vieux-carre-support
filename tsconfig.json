@@ -22,6 +22,7 @@
       "*": ["./src/*"],
       "vcs.locale": ["./public/locale"],
       "vcs": ["./src/config/global.ts"],
+      "vcs.client": ["./src/config/global.client.ts"],
       "vcs.db": ["./src/db/prisma.ts"],
       "vcs.design": ["./src/design/token"],
       "vcs.design-css": ["./src/design/token/css/globals.css"],
@@ -30,6 +31,6 @@
       "vcs.nav": ["./src/config/nav.ts"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts",  "src/**/*.ts", "src/interface/**/*.ts", "src/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/**/*.ts", "src/component/shared**/*.tsx", "src/interface/**/*.ts", "src/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
