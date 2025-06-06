@@ -1,3 +1,4 @@
+import { GLOBAL } from 'vcs'
 import { PrismaClient } from 'generated/prisma'
 import { KEY } from 'lib/constant'
 
@@ -8,5 +9,5 @@ const globalForPrisma = globalThis as unknown as {
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient()
 
-if (process.env.NODE_ENV !== KEY.PRODUCTION)
+if (GLOBAL.NODE_ENV !== KEY.PRODUCTION)
 globalForPrisma.prisma = prisma
