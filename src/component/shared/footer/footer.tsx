@@ -13,7 +13,7 @@ export const Footer = () => {
 
   return (
     <footer>
-      <div className="p-5 flex-center">
+      <div className={"p-5 flex-center"}>
         {year ? `${year} © ${GLOBAL.APP_NAME}. ${en.all_rights_reserved.label}` : ''}
       </div>
     </footer>
