@@ -1,6 +1,7 @@
 import { GLOBAL } from 'vcs'
 import type { Metadata } from "next"
 import { Inter_Tight } from 'next/font/google'
+import { Toaster } from 'sonner'
 
 import 'vcs.design-css'
 import 'vcs.design-gen-css'
@@ -22,7 +23,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={'dark'} suppressHydrationWarning>
-      <body className={`${interTight.className} antialiased`}>{children}</body>
+      <body className={`${interTight.className} antialiased`}>
+        {children}
+        <Toaster position={'top-right'} className={'rounded-none'} richColors />
+      </body>
     </html>
   )
 }
