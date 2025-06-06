@@ -1,6 +1,6 @@
-import Image from 'next/image'
 import { GLOBAL } from 'vcs'
 import { ASSET_DIR } from 'vcs.dir'
+import Image from 'next/image'
 
 const AppLogo = () => {
     return (
