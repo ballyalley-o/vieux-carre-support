@@ -3,5 +3,6 @@ export enum PRIORITY {
 }
 
 export const KEY = {
+  ALL       : 'all',
   PRODUCTION: 'production'
 }
