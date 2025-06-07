@@ -1,29 +1,12 @@
 'use client'
 
-import { ReactNode } from 'react'
 import { useFormStatus } from 'react-dom'
 import Link from 'next/link'
 import { EllipsisLoader } from 'component/shared/loader'
 import { cn } from 'lib/utility'
+import type { ButtonProps } from './button.types'
 
-type ButtonVariantType = 'default' | 'primary' | 'secondary'
-type ButtonTypeProps = {
-  type   ?: AppButtonType
-  label   : ReactNode
-  variant : ButtonVariantType
-  link   ?: false
-}
-type LinkButtonTypeProps = {
-  label  : ReactNode
-  variant: ButtonVariantType
-  link   : true
-  href   : string
-  type  ?: AppButtonType
-}
-
-type ButtonProps = ButtonTypeProps | LinkButtonTypeProps
-
-const Button = ({ label, type = 'submit', variant = 'default', link, ...rest }: ButtonProps) => {
+const Button = ({ label, type = 'submit', variant = 'default', link, fullWidth, disabled, className, onClick, ...rest }: ButtonProps) => {
   const { pending } = useFormStatus()
   const { href }    = rest as { href: string }
 
@@ -35,19 +18,26 @@ const Button = ({ label, type = 'submit', variant = 'default', link, ...rest }: 
     case 'secondary':
       _color = 'bg-vcsblue-light hover:bg-vcsblue-light/90 text-black'
       break
+    case 'outline':
+      _color = 'bg-transparent hover:bg-vcsblue-light/10 border border-vcsblue hover:border-vcsblue-light'
+      break
+    case 'transparent':
+      _color = 'bg-transparent hover:bg-vcsblue-light/10 shadow-none hover:shadow-none'
+      break
     default:
       _color = 'bg-vcsblue text-white hover:bg-blue-900'
       break
   }
 
   if (link) {
-    return ( <Link href={href} className={cn('w-full p-3 rounded transition disabled:opacity-50 cursor-pointer hover:shadow-sm shadow-lg', _color)}>
+    return (
+      <Link href={href} className={cn('p-3 rounded transition disabled:opacity-50 cursor-pointer hover:shadow-sm shadow-lg text-sm', _color, className, fullWidth && 'w-full', )}>
         {pending ? <EllipsisLoader /> : label}
       </Link>)
   }
 
   return (
-    <button className={cn('w-full p-3 rounded transition disabled:opacity-50 cursor-pointer hover:shadow-sm shadow-lg', _color )} type={type} disabled={pending}>
+    <button className={cn('p-3 rounded transition disabled:opacity-50 cursor-pointer hover:shadow-sm shadow-lg text-sm', _color, className, fullWidth && 'w-full')} type={type} disabled={pending || disabled} onClick={onClick}>
       {pending ? <EllipsisLoader /> : label}
     </button>
   )
