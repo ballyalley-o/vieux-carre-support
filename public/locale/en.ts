@@ -743,6 +743,12 @@ export const en = {
       we_are_processing: 'We are processing your order and will send you a confirmation email shortly.'
     }
   },
+  http_response: {
+    "404": {
+      label      : 'Page not found',
+      description: 'The page you are looking for might have been removed had its name changed or is temporarily unavailable.'
+    }
+  },
   success: {
     created          : 'Document created',
     created_default  : `[CREATED]: Successful ({value}: {id})`,
