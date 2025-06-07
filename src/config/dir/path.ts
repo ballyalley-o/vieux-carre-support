@@ -8,6 +8,7 @@ export const _base = process.env.NEXT_PUBLIC_SERVER_URL
 export const PATH_DIR = {
   TICKET: {
     root: combine(TICKET),
-    new : combine(TICKET, NEW)
+    new : combine(TICKET, NEW),
+    id  : (id: number) => combine(TICKET, String(id))
   }
 }
