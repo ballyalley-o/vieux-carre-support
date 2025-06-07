@@ -1,3 +1,4 @@
+import { GLOBAL } from 'vcs'
 import { FormatTextType } from "./utility.types"
 
 /**
@@ -27,4 +28,18 @@ export function formatText(text: string, type: FormatTextType) {
     default:
       return text
   }
+}
+
+export function formatToPlainObject<T>(data: T) {
+  return JSON.parse(JSON.stringify(data))
+}
+
+export function formatTicketId(ticketId: number) {
+  const { PREFIX, PAD_ID } = GLOBAL.TICKET
+  return `${PREFIX}-${ticketId.toString().padStart(PAD_ID, '0')}`
+}
+
+export function unformatTicketId(formattedId: string) {
+  const { PREFIX } = GLOBAL.TICKET
+  return parseInt(formattedId.replace(`${PREFIX}-`, ''), 10)
 }
