@@ -1,4 +1,4 @@
-import { combine } from "lib/utility"
+import { combine, formatTicketId } from "lib/utility"
 
 const TICKET = 'ticket'
 const NEW    = 'new'
@@ -9,6 +9,6 @@ export const PATH_DIR = {
   TICKET: {
     root: combine(TICKET),
     new : combine(TICKET, NEW),
-    id  : (id: number) => combine(TICKET, String(id))
+    id  : (id: number) => combine(TICKET, formatTicketId(id))
   }
 }
