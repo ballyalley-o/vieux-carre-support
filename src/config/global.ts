@@ -31,6 +31,9 @@ export const GLOBAL = {
   DB             : {
     URI: `${DB_PROTOCOL}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?sslmode=require` || ''
   },
+  LIMIT          : {
+    PAGE_SIZE: 7
+  },
   NODE_ENV,
   SENTRY_AUTH_TOKEN
 }
