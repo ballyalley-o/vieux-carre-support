@@ -1,5 +1,5 @@
 import { GLOBAL } from 'vcs'
-import { PrismaClient } from 'generated/prisma'
+import { PrismaClient } from '@prisma/client'
 import { KEY } from 'lib/constant'
 
 
