@@ -5,7 +5,7 @@ import { FaCircle } from 'react-icons/fa'
 import { BackButton } from 'component/shared/button'
 import { Pagination } from 'component/shared/pagination'
 import { Card } from 'component/shared/card'
-import { transl, formatText, cn } from "lib/utility"
+import { transl, formatText, cn, formatTicketId } from "lib/utility"
 
 interface TicketsPageProps {
     searchParams: Promise<AppTicketsAction<string>>
@@ -26,7 +26,7 @@ const TicketsPage = async ({ searchParams }: TicketsPageProps) => {
           ) : (
             <div className={'space-y-4 max-w-3xl mx-auto'}>
               {tickets.data.map((ticket, _i) => (
-                <Card key={_i} title={ticket.subject} icon={<div className={'align-middle items-center-safe flex gap-2'}><FaCircle className={cn(`text-priority-${formatText(ticket.priority, 'lowercase')}`)}/> <span>{formatText(ticket.priority, 'capitalize')}</span></div>}>
+                <Card key={_i} header={formatTicketId(ticket.id)} title={ticket.subject} icon={<div className={'align-middle items-center-safe flex gap-2'}><FaCircle className={cn(`text-priority-${formatText(ticket.priority, 'lowercase')}`)}/> <span>{formatText(ticket.priority, 'capitalize')}</span></div>}>
                     <Link href={PATH_DIR.TICKET.id(ticket.id)} className={'inline-block mt-2 bg-blue-600 text-white text-sm px-3 py-1 rounded-sm hover:bg-blue-700 transition text-center'}>
                         {transl('view_ticket.label')}
                     </Link>
