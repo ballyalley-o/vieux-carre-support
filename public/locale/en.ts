@@ -393,6 +393,9 @@ export const en = {
   no_data: {
     label: 'No Data'
   },
+  no_ticket: {
+    label: 'No Ticket'
+  },
   not_delivered: {
     label: 'Not Delivered'
   },
@@ -609,6 +612,10 @@ export const en = {
   subtotal: {
     label: 'Subtotal'
   },
+  support_ticket: {
+    label : 'Support Ticket',
+    plural: 'Support Tickets'
+  },
   recent_sales: {
     label: 'Recent Sales'
   },
@@ -676,6 +683,9 @@ export const en = {
   view: {
     label: 'View'
   },
+  view_ticket: {
+    label: 'View Ticket'
+  },
   view_order: {
     label: 'View Order'
   },
@@ -735,9 +745,10 @@ export const en = {
   },
   success: {
     created          : 'Document created',
-    deleted          : 'Document deleted',
-    updated          : 'Document updated',
     created_default  : `[CREATED]: Successful ({value}: {id})`,
+    deleted          : 'Document deleted',
+    fetched_default  : `[FETCH]: Successful ({value}: count: {count})`,
+    updated          : 'Document updated',
     file_deleted     : 'File deleted',
     order_created    : 'Order created',
     order_deleted    : 'Order deleted',
@@ -760,6 +771,7 @@ export const en = {
     bag_not_found             : 'Bag not found',
     create_ticket             : `An error occured while creating the ticket`,
     failed_extraction_file_key: 'Failed extracting the file key, [ERR]: ',
+    failed_fetch_default      : `[FETCH]: Failed to fetch {value}`,
     gallery_save              : 'An error occurred while saving the gallery',
     invalid_credentials       : 'Invalid credentials',
     invalid_file_key          : 'Invalid file key',
