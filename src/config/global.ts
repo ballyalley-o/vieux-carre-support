@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 const _msg = (key: string): string => `unable to read/missing: ${key}`
+
 const envSchema = z.object({
   NEXT_PUBLIC_APP_NAME       : z.string().min(1, _msg('NEXT_PUBLIC_APP_NAME')),
   NEXT_PUBLIC_APP_DESCRIPTION: z.string().min(1, _msg('NEXT_PUBLIC_APP_DESCRIPTION')),
@@ -15,25 +16,63 @@ const envSchema = z.object({
   SENTRY_AUTH_TOKEN          : z.string().min(1, _msg('SENTRY_AUTH_TOKEN'))
 })
 
-const _envParsed =  envSchema.safeParse(process.env)
+let parsedEnv: z.infer<typeof envSchema> | null = null
 
-if (!_envParsed.success) {
-  console.error('Invalid environment variables: ', _envParsed.error.format())
-  throw new Error('Invalid environment configuration')
+function getEnv() {
+  if (parsedEnv) return parsedEnv
+
+  const _envParsed = envSchema.safeParse(process.env)
+  if (!_envParsed.success) {
+    if (typeof window === 'undefined') {
+      console.error('Invalid environment variables: ', _envParsed.error.format())
+      throw new Error('Invalid environment configuration')
+    }
+    return {
+      NEXT_PUBLIC_APP_NAME       : '',
+      NEXT_PUBLIC_APP_DESCRIPTION: '',
+      NEXT_PUBLIC_SERVER_URL     : '',
+      NODE_ENV                   : '',
+      DB_URI                     : '',
+      DB_PROTOCOL                : '',
+      DB_HOST                    : '',
+      DB_NAME                    : '',
+      DB_USER                    : '',
+      DB_PASSWORD                : '',
+      SENTRY_AUTH_TOKEN          : ''
+    }
+  }
+
+  parsedEnv = _envParsed.data
+  return parsedEnv
 }
 
-const { NEXT_PUBLIC_APP_NAME, NEXT_PUBLIC_APP_DESCRIPTION, NEXT_PUBLIC_SERVER_URL, NODE_ENV, DB_PROTOCOL, DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, SENTRY_AUTH_TOKEN } = _envParsed.data
-
 export const GLOBAL = {
-  APP_NAME       : NEXT_PUBLIC_APP_NAME,
-  APP_DESCRIPTION: NEXT_PUBLIC_APP_DESCRIPTION,
-  SERVER_URL     : NEXT_PUBLIC_SERVER_URL,
-  DB             : {
-    URI: `${DB_PROTOCOL}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?sslmode=require` || ''
+  get APP_NAME() {
+    return getEnv().NEXT_PUBLIC_APP_NAME
   },
-  LIMIT          : {
+  get APP_DESCRIPTION() {
+    return getEnv().NEXT_PUBLIC_APP_DESCRIPTION
+  },
+  get SERVER_URL() {
+    return getEnv().NEXT_PUBLIC_SERVER_URL
+  },
+  get NODE_ENV() {
+    return getEnv().NODE_ENV
+  },
+  get SENTRY_AUTH_TOKEN() {
+    return getEnv().SENTRY_AUTH_TOKEN
+  },
+  get DB() {
+    const env = getEnv()
+    return {
+      URI: `${env.DB_PROTOCOL}://${env.DB_USER}:${env.DB_PASSWORD}@${env.DB_HOST}/${env.DB_NAME}?sslmode=require`
+    }
+  },
+  LIMIT: {
     PAGE_SIZE: 7
   },
-  NODE_ENV,
-  SENTRY_AUTH_TOKEN
+  TICKET: {
+    PREFIX  : 'TKT',
+    PAD_ID: 8
+  }
 }
