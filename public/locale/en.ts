@@ -168,6 +168,10 @@ export const en = {
     label: 'Filtered by'
   },
   form: {
+    created_at: {
+      label      : 'Date Created',
+      placeholder: 'Date'
+    },
     image: {
       label      : 'Image',
       placeholder: 'Add Image'
@@ -310,6 +314,10 @@ export const en = {
   go_back: 'Go Back',
   go_to  : {
     label: 'Go to'
+  },
+  go_back_tickets: {
+    label      : 'Go Back to Tickets',
+    description: 'Go Back to Home page'
   },
   go_to_bag  : 'Go to Bag',
   go_shopping: 'Go Shopping',
@@ -749,6 +757,9 @@ export const en = {
       description: 'The page you are looking for might have been removed had its name changed or is temporarily unavailable.'
     }
   },
+  event: {
+    viewing_default: `Viewing {value} details`
+  },
   success: {
     created          : 'Document created',
     created_default  : `[CREATED]: Successful ({value}: {id})`,
@@ -792,6 +803,7 @@ export const en = {
     no_shipping_address       : 'No shipping address',
     no_payment_method         : 'No payment method selected',
     not_found                 : 'Document not found',
+    not_found_default         : `{value} not found`,
     order_paid                : 'Order is already paid',
     order_not_created         : 'Order not created',
     order_not_found           : 'Order not found',
