@@ -10,5 +10,4 @@ declare global {
       | Prisma.PrismaClientInitializationError
       | Prisma.PrismaClientValidationError
 
-
 }
