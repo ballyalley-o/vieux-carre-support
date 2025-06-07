@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache'
 import { Prisma, TicketPriority } from '@prisma/client'
 import { SystemLogger } from "lib/utility/app-logger"
 import { CODE, KEY } from "lib/constant"
-import { transl } from "lib/utility"
+import { transl, formatToPlainObject } from 'lib/utility'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const TAG    = 'Ticket.Action'
@@ -68,4 +68,20 @@ export async function getTickets({ query, limit = GLOBAL.LIMIT.PAGE_SIZE, page, 
         SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
         return { data: [], totalPages: 0 }
     }
+}
+
+export async function getTicketById(ticketId: number) {
+  try {
+    const ticket = await prisma.ticket.findFirst({ where: { id: ticketId } })
+
+    if (!ticket) {
+        SystemLogger.sentryLogEvent(transl('error.not_found_default', { value: MODULE }), MODULE, { ticket: ticketId }, 'warning')
+    }
+
+    return formatToPlainObject(ticket)
+  } catch (error: unknown) {
+    const _errorMessage = transl(`error.failed_fetch_default`, { value: MODULE })
+    SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
+    return null
+  }
 }
