@@ -14,9 +14,10 @@ interface PaginationProps {
 const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
   const router       = useRouter()
   const searchParams = useSearchParams()
-
-  const handleClick = (direction: 'prev' | 'next') => {
-    const pageValue = direction === 'prev' ? Number(page) - 1 : Number(page) + 1
+  const numPage      = Number(page)
+  const currentPage  = Number.isNaN(numPage) || numPage < 1 ? 1 : numPage
+  const handleClick  = (direction: 'prev' | 'next') => {
+    const pageValue = direction === 'prev' ? currentPage - 1 : currentPage + 1
     const newUrl    = formUrlQuery({ params: searchParams.toString(), key: urlParamName || 'page', value: pageValue.toString() })
     router.push(newUrl)
   }
@@ -26,28 +27,28 @@ const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
         variant={'transparent'}
         label={
           <Fragment>
-            <MdKeyboardArrowLeft className={cn('opacity-100 translate-x-[100%] ease-in-out group-hover:translate-x-5 hover:opacity-0', Number(page) < totalPages) ? 'text-3xl' : 'text-4xl'} />
+            <MdKeyboardArrowLeft className={cn('opacity-100 translate-x-[100%] ease-in-out group-hover:translate-x-5 hover:opacity-0', currentPage < totalPages) ? 'text-3xl' : 'text-4xl'} />
             <p className={"ml-2 absolute right-15 translate-x-[100%] opacity-0 whitespace-nowrap rounded px-2 py-1 text-sm transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:opacity-100"}>
               {transl('previous.label')}
             </p>
           </Fragment>
         }
         className={'w-28 px-0 group relative flex text-center justify-center items-center'}
-        disabled={Number(page) <= 1}
+        disabled={currentPage <= 1}
         onClick={() => handleClick('prev')}
       />
       <Button
         variant={'transparent'}
         label={
           <Fragment>
-            <MdKeyboardArrowRight className={cn('opacity-100 translate-x-[-100%] ease-in-out group-hover:translate-x-5 group-hover:opacity-0', Number(page) < totalPages) ? 'text-3xl' : 'text-4xl'} />
+            <MdKeyboardArrowRight className={cn('opacity-100 translate-x-[-100%] ease-in-out group-hover:translate-x-5 group-hover:opacity-0', currentPage < totalPages) ? 'text-3xl' : 'text-4xl'} />
             <p className={"ml-2 absolute right-15 translate-x-[-100%] opacity-0 whitespace-nowrap rounded px-2 py-1 text-sm transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:opacity-100"}>
               {transl('next.label')}
             </p>
           </Fragment>
         }
         className={'w-28 px-0 group relative flex text-center justify-center items-center'}
-        disabled={Number(page) >= totalPages}
+        disabled={currentPage >= totalPages}
         onClick={() => handleClick('next')}></Button>
     </div>
   )
