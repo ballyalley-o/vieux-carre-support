@@ -790,7 +790,9 @@ export const en = {
     bag_empty                 : 'Bag is empty',
     bag_not_found             : 'Bag not found',
     create_ticket             : `An error occured while creating the ticket`,
+    exists_default            : `[AUTH] {document} already exists in our records`,
     failed_extraction_file_key: 'Failed extracting the file key, [ERR]: ',
+    failed_signed_up          : `[AUTH]: Error occured while signing up`,
     failed_fetch_default      : `[FETCH]: Failed to fetch {value}`,
     failed_sign_token         : `[AUTH]: Token signing failed`,
     failed_decrypt_token      : `[AUTH]: Token decryption failed`,
@@ -826,6 +828,6 @@ export const en = {
     user_not_authenticated    : 'User not authenticated',
     user_not_authorized       : 'User not authorized',
     user_not_found            : 'User not found',
-    validation_error          : `Validation Error: {error}`
+    validation_error          : `[VALIDATION]: {error}`
   }
 }
