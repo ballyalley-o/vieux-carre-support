@@ -106,7 +106,7 @@ export const GLOBAL = {
     PAGE_SIZE: 7
   },
   TICKET: {
-    PREFIX  : 'TKT',
+    PREFIX: 'TKT',
     PAD_ID: 8
   }
 }
