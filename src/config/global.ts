@@ -13,7 +13,11 @@ const envSchema = z.object({
   DB_NAME                    : z.string().min(1, _msg('DB_NAME')),
   DB_USER                    : z.string().min(1, _msg('DB_USER')),
   DB_PASSWORD                : z.string().min(1, _msg('DB_PASSWORD')),
-  SENTRY_AUTH_TOKEN          : z.string().min(1, _msg('SENTRY_AUTH_TOKEN'))
+  SENTRY_AUTH_TOKEN          : z.string().min(1, _msg('SENTRY_AUTH_TOKEN')),
+  AUTH_SECRET                : z.string().min(1, _msg('AUTH_SECRET')),
+  AUTH_TOKEN_NAME            : z.string().min(1, _msg('AUTH_TOKEN_NAME')),
+  AUTH_ALG                   : z.string().min(1, _msg('AUTH_ALG')),
+  AUTH_EXP_TIME              : z.string().min(1, _msg('AUTH_EXP_TIME'))
 })
 
 let parsedEnv: z.infer<typeof envSchema> | null = null
@@ -38,7 +42,11 @@ function getEnv() {
       DB_NAME                    : '',
       DB_USER                    : '',
       DB_PASSWORD                : '',
-      SENTRY_AUTH_TOKEN          : ''
+      SENTRY_AUTH_TOKEN          : '',
+      AUTH_SECRET                : '',
+      AUTH_TOKEN_NAME            : '',
+      AUTH_ALG                   : '',
+      AUTH_EXP_TIME              : ''
     }
   }
 
@@ -66,6 +74,15 @@ export const GLOBAL = {
     const env = getEnv()
     return {
       URI: `${env.DB_PROTOCOL}://${env.DB_USER}:${env.DB_PASSWORD}@${env.DB_HOST}/${env.DB_NAME}?sslmode=require`
+    }
+  },
+  get AUTH() {
+    return {
+      SECRET    : getEnv().AUTH_SECRET,
+      TOKEN_NAME: getEnv().AUTH_TOKEN_NAME,
+      ALG       : getEnv().AUTH_ALG,
+      EXP_TIME  : getEnv().AUTH_EXP_TIME,
+      MAX_AGE   : 60 * 60 * 24
     }
   },
   LIMIT: {
