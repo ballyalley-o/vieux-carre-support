@@ -6,7 +6,7 @@ const AppLogo = () => {
     return (
         <div className={'flex flex-row items-center p-5'}>
             <div className={'logo-home'}>
-            <Image src={ASSET_DIR.LOGO.svg} alt="logo" fill priority style={{ objectFit: 'contain' }} />
+                <Image src={ASSET_DIR.LOGO.svg} alt="logo" fill priority objectFit={'contain'} />
             </div>
             <span className={'ml-3 text-lg text-left'}>
                 <p className={'text-2xl font-bold'}>{GLOBAL.APP_NAME}</p>
