@@ -2,6 +2,23 @@ import { z } from 'zod'
 
 const _msg = (key: string): string => `unable to read/missing: ${key}`
 
+/**
+* To add a new environment variable:
+ * 1. Add a new entry to the `envSchema` with validation using `z.string().min(1, _msg('KEY_NAME'))`.
+ *    For example:
+ *      NEW_VAR: z.string().min(1, _msg('NEW_VAR'))
+ *
+ * 2. Add a default fallback value in the `getEnv` function if needed, inside the `return { ... }` block
+ *    (for client environments where process.env may be unavailable).
+ *
+ * 3. If the variable is needed in the exported `GLOBAL` object, add a corresponding getter.
+ *    For example:
+ *      get NEW_VAR() {
+ *        return getEnv().NEW_VAR
+ *      }
+ *
+ * This ensures that all environment variables are validated, safely accessed, and consistently documented.
+ */
 const envSchema = z.object({
   NEXT_PUBLIC_APP_NAME       : z.string().min(1, _msg('NEXT_PUBLIC_APP_NAME')),
   NEXT_PUBLIC_APP_DESCRIPTION: z.string().min(1, _msg('NEXT_PUBLIC_APP_DESCRIPTION')),
