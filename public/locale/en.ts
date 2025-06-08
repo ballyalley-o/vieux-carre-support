@@ -398,6 +398,9 @@ export const en = {
   next: {
     label: 'Next'
   },
+  new_ticket: {
+    label: 'New Ticket'
+  },
   no_data: {
     label: 'No Data'
   },
@@ -764,7 +767,7 @@ export const en = {
     created          : 'Document created',
     created_default  : `[CREATED]: Successful ({value}: {id})`,
     deleted          : 'Document deleted',
-    fetched_default  : `[FETCH]: Successful ({value}: count: {count})`,
+    fetched_default  : `[FETCH]: Successful ({value}-count: {count})`,
     updated          : 'Document updated',
     file_deleted     : 'File deleted',
     order_created    : 'Order created',
@@ -789,6 +792,10 @@ export const en = {
     create_ticket             : `An error occured while creating the ticket`,
     failed_extraction_file_key: 'Failed extracting the file key, [ERR]: ',
     failed_fetch_default      : `[FETCH]: Failed to fetch {value}`,
+    failed_sign_token         : `[AUTH]: Token signing failed`,
+    failed_decrypt_token      : `[AUTH]: Token decryption failed`,
+    failed_set_cookie         : `[AUTH] Cookie set failed`,
+    failed_remove_cookie      : `[AUTH] Cookie remove failed`,
     gallery_save              : 'An error occurred while saving the gallery',
     invalid_credentials       : 'Invalid credentials',
     invalid_file_key          : 'Invalid file key',
