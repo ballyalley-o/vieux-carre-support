@@ -31,7 +31,7 @@ export async function createTicket(prevState: AppResponse, formData: FormData): 
         SystemLogger.sentryLogEvent(_message)
 
         revalidatePath(PATH_DIR.TICKET.root)
-        return SystemLogger.response(true, transl('success.created'), CODE.OK, { subject, description, priority })
+        return SystemLogger.response(true, transl('success.created'), CODE.CREATED, { subject, description, priority })
     } catch (error: unknown) {
         const _errorMessage = transl('error.create_ticket', { error: (error as AppError).message })
         SystemLogger.sentryLogEvent(_errorMessage, MODULE, { formData: Object.fromEntries(formData.entries()) }, 'error', error)
