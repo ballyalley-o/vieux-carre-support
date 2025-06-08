@@ -14,12 +14,22 @@ html, body {
   @apply relative;
 }
 
+.logo-navbar {
+  width : var(--logo-md);
+  height: var(--logo-md);
+  @apply relative;
+}
+
 .input-default {
   @apply p-3 border border-vcsblue-light rounded-sm focus:ring-vcsblue
 }
 
 .mono-contrast-button-text {
   @apply text-black dark:text-white
+}
+
+.shadow-vcs {
+  box-shadow: 0 4px 6px rgba(0, 102, 204, 0.3);
 }
 
 @theme {
@@ -52,6 +62,7 @@ html, body {
   --logo-lg              : var(--logo-lg);
   --logo-xl              : var(--logo-xl);
 }
+/* --shadow-md            : 0 4px 6px rgba(0, 102, 204, 0.3); */
 
 @theme inline {
   --color-background: var(--color-dark-blue);

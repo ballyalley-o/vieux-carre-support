@@ -31,13 +31,13 @@ const Button = ({ label, type = 'submit', variant = 'default', link, fullWidth, 
 
   if (link) {
     return (
-      <Link href={href} className={cn('p-3 rounded transition disabled:opacity-50 cursor-pointer hover:shadow-sm shadow-lg text-sm', _color, className, fullWidth && 'w-full', )}>
+      <Link href={href} className={cn('p-3 rounded transition disabled:opacity-50 cursor-pointer hover:shadow-sm shadow-lg shadow-vcsblue-light text-sm', _color, className, fullWidth && 'w-full', )}>
         {pending ? <EllipsisLoader /> : label}
       </Link>)
   }
 
   return (
-    <button className={cn('p-3 rounded transition disabled:opacity-50 cursor-pointer hover:shadow-sm shadow-lg text-sm', _color, className, fullWidth && 'w-full')} type={type} disabled={pending || disabled} onClick={onClick}>
+    <button className={cn('p-3 rounded transition disabled:opacity-50 cursor-pointer hover:shadow-sm shadow-lg shadow-vcsblue-light text-sm', _color, className, fullWidth && 'w-full')} type={type} disabled={pending || disabled} onClick={onClick}>
       {pending ? <EllipsisLoader /> : label}
     </button>
   )
