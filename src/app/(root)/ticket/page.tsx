@@ -13,7 +13,9 @@ interface TicketsPageProps {
 
 const TicketsPage = async ({ searchParams }: TicketsPageProps) => {
     const { page, query, category } = await searchParams
-    const tickets                   = await getTickets({ query, page: Number(page) || 1, category })
+    const rawPage                   = Number(page)
+    const currentPage               = isNaN(rawPage) || rawPage < 1 ? 1 : rawPage
+    const tickets                   = await getTickets({ query, page: currentPage, category })
     return (
       <div className={'h-screen p-8 overflow-y-auto flex flex-col'}>
         <div className={'flex-none top-8 sticky z-10'}>
@@ -36,7 +38,7 @@ const TicketsPage = async ({ searchParams }: TicketsPageProps) => {
           )}
         </div>
         <div className={'mt-5 flex justify-end'}>
-        <Pagination page={page} totalPages={tickets.totalPages} />
+          <Pagination page={Number(page)} totalPages={tickets.totalPages} />
         </div>
       </div>
     )
