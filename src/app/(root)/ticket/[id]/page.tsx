@@ -1,10 +1,10 @@
+import { Fragment } from 'react'
 import { PATH_DIR } from 'vcs.dir'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getTicketById } from "action/ticket.action"
 import { MdArrowBack } from 'react-icons/md'
 import { FaCircle } from 'react-icons/fa'
-import { BackButton } from 'component/shared/button'
+import { BackButton, Button } from 'component/shared/button'
 import { cn, SystemLogger, transl, unformatTicketId, formatText } from "lib/utility"
 
 interface TicketPageProps {
@@ -39,17 +39,27 @@ const TicketPage = async ({ params }: TicketPageProps) => {
           </div>
           <div className={''}>
             <h2 className="text-lg font-semibold mb-2">{transl('priority.label')}</h2>
-            <p className={cn('text-xl font-bold', `text-priority-${formatText(ticket.priority, 'lowercase')}` )}>{formatText(ticket.priority, 'capitalize')}</p>
+            <p className={cn('text-xl font-bold', `text-priority-${formatText(ticket.priority, 'lowercase')}`)}>
+              {formatText(ticket.priority, 'capitalize')}
+            </p>
           </div>
           <div className={' text-gray-700'}>
             <h2 className="text-lg font-semibold mb-2">{transl('form.created_at.label')}</h2>
-            <p className={'text-xl'}>{ticket.createdAt}</p>
+            <p className={'text-xl'}>{new Date(ticket.createdAt).toLocaleString()}</p>
           </div>
 
-          <Link href={PATH_DIR.TICKET.root} className={'w-[150px] flex justify-start items-center bg-vcsblue gap-2 text-white px-4 py-2 rounded-sm hover:bg-blue-700 transition'}>
-            <MdArrowBack className={''} />
-            <h2 className={''}>{transl('go_back_tickets.label')}</h2>
-          </Link>
+          <Button
+            link
+            href={PATH_DIR.TICKET.root}
+            variant={'primary'}
+            label={
+              <Fragment>
+                <MdArrowBack className={''} />
+                <h2 className={''}>{transl('go_back_tickets.label')}</h2>
+              </Fragment>
+            }
+            className={'w-[150px] flex justify-start items-center bg-vcsblue gap-2 text-white px-4 py-2 rounded-sm hover:bg-blue-700 transition'}
+          />
         </div>
       </div>
     )
