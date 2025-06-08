@@ -34,7 +34,11 @@ const envSchema = z.object({
   AUTH_SECRET                : z.string().min(1, _msg('AUTH_SECRET')),
   AUTH_TOKEN_NAME            : z.string().min(1, _msg('AUTH_TOKEN_NAME')),
   AUTH_ALG                   : z.string().min(1, _msg('AUTH_ALG')),
-  AUTH_EXP_TIME              : z.string().min(1, _msg('AUTH_EXP_TIME'))
+  AUTH_EXP_TIME              : z.string().min(1, _msg('AUTH_EXP_TIME')),
+  HASH_TYPE                  : z.string().min(1, _msg('HASH_TYPE')),
+  HASH_MEMORY_COST           : z.string().min(1, _msg('HASH_MEMORY_COST')),
+  HASH_TIME_COST             : z.string().min(1, _msg('HASH_TIME_COST')),
+  HASH_PARALLELISM           : z.string().min(1, _msg('HASH_PARALLELISM')),
 })
 
 let parsedEnv: z.infer<typeof envSchema> | null = null
@@ -63,7 +67,11 @@ function getEnv() {
       AUTH_SECRET                : '',
       AUTH_TOKEN_NAME            : '',
       AUTH_ALG                   : '',
-      AUTH_EXP_TIME              : ''
+      AUTH_EXP_TIME              : '',
+      HASH_TYPE                  : 'argon2id',
+      HASH_MEMORY_COST           : '19456',
+      HASH_TIME_COST             : '2',
+      HASH_PARALLELISM           : '1',
     }
   }
 
@@ -95,11 +103,19 @@ export const GLOBAL = {
   },
   get AUTH() {
     return {
-      SECRET    : getEnv().AUTH_SECRET,
+      SECRET: getEnv().AUTH_SECRET,
       TOKEN_NAME: getEnv().AUTH_TOKEN_NAME,
-      ALG       : getEnv().AUTH_ALG,
-      EXP_TIME  : getEnv().AUTH_EXP_TIME,
-      MAX_AGE   : 60 * 60 * 24
+      ALG: getEnv().AUTH_ALG,
+      EXP_TIME: getEnv().AUTH_EXP_TIME,
+      MAX_AGE: 60 * 60 * 24
+    }
+  },
+  get HASH() {
+    return {
+      TYPE       : getEnv().HASH_TYPE,
+      MEMORY_COST: getEnv().HASH_MEMORY_COST,
+      TIME_COST  : getEnv().HASH_TIME_COST,
+      PARALLELISM: getEnv().HASH_PARALLELISM
     }
   },
   LIMIT: {
