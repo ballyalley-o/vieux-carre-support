@@ -17,14 +17,14 @@ const TicketsPage = async ({ searchParams }: TicketsPageProps) => {
     const currentPage               = isNaN(rawPage) || rawPage < 1 ? 1 : rawPage
     const tickets                   = await getTickets({ query, page: currentPage, category })
     return (
-      <div className={'h-screen p-8 overflow-y-auto flex flex-col'}>
+      <div className={'min-h-screen p-8 flex flex-col'}>
         <div className={'flex-none top-8 sticky z-10'}>
             <h1 className={cn('text-3xl font-bold text-vcsblue mb-8 text-center md:text-left')}>{transl('support_ticket.plural')}</h1>
             <BackButton />
         </div>
-        <div className={'flex-1 overflow-y-auto p-8'}>
+        <div className={'flex-1 px-8 overflow-y-auto'}>
           {tickets.totalPages === 0 ? (
-            <p className={'text-center text-gray-500'}>{transl('no_ticket.label')}</p>
+            <h5 className={'text-center text-gray-200 text-xl font-bold'}>{transl('no_ticket.label')}</h5>
           ) : (
             <div className={'space-y-4 max-w-3xl mx-auto'}>
               {tickets.data.map((ticket, _i) => (
@@ -37,7 +37,7 @@ const TicketsPage = async ({ searchParams }: TicketsPageProps) => {
             </div>
           )}
         </div>
-        <div className={'mt-5 flex justify-end'}>
+        <div className={'z-20 bottom-8 right-8 sticky flex justify-end-safe'}>
           <Pagination page={Number(page)} totalPages={tickets.totalPages} />
         </div>
       </div>
