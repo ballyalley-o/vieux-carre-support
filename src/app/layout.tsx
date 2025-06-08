@@ -2,6 +2,7 @@ import { GLOBAL } from 'vcs'
 import type { Metadata } from "next"
 import { Inter_Tight } from 'next/font/google'
 import { Toaster } from 'sonner'
+import { Navbar } from 'component/shared/nav'
 
 import 'vcs.design-css'
 import 'vcs.design-gen-css'
@@ -24,7 +25,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={'dark'} suppressHydrationWarning>
       <body className={`${interTight.className} antialiased`}>
-        {children}
+        <Navbar />
+          {children}
         <Toaster position={'top-right'} className={'rounded-none'} richColors />
       </body>
     </html>
