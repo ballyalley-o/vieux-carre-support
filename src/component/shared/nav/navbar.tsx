@@ -10,7 +10,7 @@ const Navbar = () => {
           <AppLogoNavbar />
         </div>
         <div className={'flex items-center space-x-4'}>
-          <Button link href={PATH_DIR.TICKET.new} variant={'transparent'}  className={'hover:bg-gray-300 text-gray-700 transition'} label={transl('new_ticket.label')} />
+          <Button link href={PATH_DIR.TICKET.new} variant={'transparent'} className={'hover:bg-gray-300 text-gray-700 transition'} label={transl('new_ticket.label')} />
         </div>
       </nav>
     )
