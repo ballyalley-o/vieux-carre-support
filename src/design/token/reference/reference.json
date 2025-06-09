@@ -106,5 +106,27 @@
             "value": "42px",
             "type" : "dimension"
         }
+    },
+    "icon": {
+        "xs": {
+            "value": "15px",
+            "type" : "dimension"
+        },
+        "sm": {
+            "value": "25px",
+            "type" : "dimension"
+        },
+        "md": {
+            "value": "30px",
+            "type" : "dimension"
+        },
+        "lg": {
+            "value": "35px",
+            "type" : "dimension"
+        },
+        "xl": {
+            "value": "45px",
+            "type" : "dimension"
+        }
     }
 }

@@ -61,6 +61,11 @@ html, body {
   --logo-md              : var(--logo-md);
   --logo-lg              : var(--logo-lg);
   --logo-xl              : var(--logo-xl);
+  --icon-xs              : var(--icon-xs);
+  --icon-sm              : var(--icon-sm);
+  --icon-md              : var(--icon-md);
+  --icon-lg              : var(--icon-lg);
+  --icon-xl              : var(--icon-xl);
 }
 /* --shadow-md            : 0 4px 6px rgba(0, 102, 204, 0.3); */
 
