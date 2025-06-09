@@ -29,13 +29,13 @@ export async function signUp(prevState: AppResponse, formData: FormData): Promis
             return SystemLogger.response(false, _errorMessage, CODE.CONFLICT, {})
         }
 
-        // const { MEMORY_COST, TIME_COST, PARALLELISM } = GLOBAL.HASH
+        const { MEMORY_COST, TIME_COST, PARALLELISM } = GLOBAL.HASH
 
         const hashedPassword = await argon2.hash(password, {
           type       : argon2.argon2id,
-          memoryCost : 19456,
-          timeCost   : 2,
-          parallelism: 1
+          memoryCost : parseInt(MEMORY_COST, 10),
+          timeCost   : parseInt(TIME_COST, 10),
+          parallelism: parseInt(PARALLELISM, 10)
         })
 
         const user  = await prisma.user.create({ data: { name, email, password: hashedPassword }})
