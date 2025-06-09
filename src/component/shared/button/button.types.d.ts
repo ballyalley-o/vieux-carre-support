@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export type ButtonVariantType = 'default' | 'primary' | 'secondary' | 'outline' | 'transparent'
+export type ButtonVariantType = 'default' | 'primary' | 'secondary' | 'outline' | 'transparent' | 'desctructive'
 export type ButtonTypeProps = {
   type     ?: AppButtonType
   label     : ReactNode
