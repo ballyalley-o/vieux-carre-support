@@ -182,3 +182,74 @@ body {
 .animate-wave {
   animation: wave 1.5s ease-in-out infinite;
 }
+
+/* icons */
+.icon--tickets-solid {
+  display            : inline-block;
+  width              : var(--icon-xs);
+  height             : var(--icon-xs);
+  --svg              : url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath fill='%23000' fill-rule='evenodd' d='M.947 1.743c.264-.109.561.035.748.251a1.4 1.4 0 0 0 .489.363a1.406 1.406 0 0 0 1.975-1.4c-.022-.274.075-.574.325-.691l.41-.193a.95.95 0 0 1 1.237.5l.483 1.118l-.052.113l-.001.002l-3.19 7.367l-.346.787L.069 3.12a.95.95 0 0 1 .458-1.204zm11.322 2.004c.185-.218.483-.361.747-.253l.443.183a.973.973 0 0 1 .47 1.235l-3.672 8.5a.973.973 0 0 1-1.269.513L4.55 12.034a.973.973 0 0 1-.514-1.268l.481-1.093L7.71 2.3a.973.973 0 0 1 1.268-.514l.434.203c.25.117.347.417.322.692a1.45 1.45 0 0 0 .409 1.143a1.444 1.444 0 0 0 2.127-.077' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-color   : currentColor;
+  -webkit-mask-image : var(--svg);
+  mask-image         : var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat        : no-repeat;
+  -webkit-mask-size  : 100% 100%;
+  mask-size          : 100% 100%;
+}
+
+.icon--ticket-fill {
+  display            : inline-block;
+  width              : var(--icon-xs);
+  height             : var(--icon-xs);
+  --svg              : url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5a1.5 1.5 0 1 1 0 3a.5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5a1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3z'/%3E%3C/svg%3E");
+  background-color   : currentColor;
+  -webkit-mask-image : var(--svg);
+  mask-image         : var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat        : no-repeat;
+  -webkit-mask-size  : 100% 100%;
+  mask-size          : 100% 100%;
+}
+
+.icon--plus {
+  display            : inline-block;
+  width              : var(--icon-xs);
+  height             : var(--icon-xs);
+  --svg              : url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M7 7V.5h2V7h6.5v2H9v6.5H7V9H.5V7z'/%3E%3C/svg%3E");
+  background-color   : currentColor;
+  -webkit-mask-image : var(--svg);
+  mask-image         : var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat        : no-repeat;
+  -webkit-mask-size  : 100% 100%;
+  mask-size          : 100% 100%;
+}
+
+.icon--eye-fill {
+  display            : inline-block;
+  width              : var(--icon-xs);
+  height             : var(--icon-xs);
+  --svg              : url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' fill-rule='evenodd' d='M1.069 11.636C2.803 7.194 6.884 4 12 4s9.197 3.194 10.932 7.636a1 1 0 0 1 0 .728C21.197 16.806 17.116 20 12 20s-9.197-3.194-10.931-7.636a1 1 0 0 1 0-.728M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-color   : currentColor;
+  -webkit-mask-image : var(--svg);
+  mask-image         : var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat        : no-repeat;
+  -webkit-mask-size  : 100% 100%;
+  mask-size          : 100% 100%;
+}
+
+.icon--eye-off {
+  display            : inline-block;
+  width              : var(--icon-xs);
+  height             : var(--icon-xs);
+  --svg              : url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='m14.293.293l1.414 1.414l-2.657 2.657q.236.236.443.467a14 14 0 0 1 1.863 2.647l.027.051l.007.016l.003.005l.001.002l.224.448l-.224.449l-.001.001l-.003.005l-.007.016a6 6 0 0 1-.125.23a14 14 0 0 1-1.765 2.467C12.303 12.492 10.427 14 8 14c-1.34 0-2.511-.46-3.492-1.094l-2.8 2.801l-1.415-1.414zm-4.36 7.19l-2.451 2.45a2.003 2.003 0 0 0 2.45-2.45Zm-.131-5.2A5.9 5.9 0 0 0 8 2C5.573 2 3.698 3.508 2.507 4.831A14 14 0 0 0 .644 7.478l-.026.051l-.008.016l-.003.005v.001c-.232.463-.091.182-.069.137L.382 8l.224.447l.001.003l.003.005l.008.016a6 6 0 0 0 .124.23a14 14 0 0 0 1.047 1.596z'/%3E%3C/svg%3E");
+  background-color   : currentColor;
+  -webkit-mask-image : var(--svg);
+  mask-image         : var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat        : no-repeat;
+  -webkit-mask-size  : 100% 100%;
+  mask-size          : 100% 100%;
+}
