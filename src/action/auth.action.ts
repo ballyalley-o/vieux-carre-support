@@ -64,3 +64,43 @@ export async function signOut(): Promise<AppResponse> {
         return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
     }
 }
+
+export async function signIn(prevState: AppResponse, formData: FormData): Promise<AppResponse> {
+    try {
+        const email    = formData.get('email') as string
+        const password = formData.get('password') as string
+
+        if (!email || !password) {
+            const _errorMessage = transl('error.validation_error', { error: 'missing sign-in fields' })
+            SystemLogger.sentryLogEvent(_errorMessage, MODULE, { email }, 'warning')
+            return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
+        }
+
+        const user = await prisma.user.findUnique({ where: { email }})
+
+        if (!user || !user.password) {
+            const _errorMessage = transl('error.failed_sign_in', { email })
+            SystemLogger.sentryLogEvent(_errorMessage, MODULE, { email }, 'warning')
+            return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
+        }
+
+        const isMatch = await argon2.verify(user.password, password)
+
+        if (!isMatch) {
+            const _errorMessage = transl('error.incorrect_password')
+            SystemLogger.sentryLogEvent(_errorMessage, MODULE, { email }, 'warning')
+            return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
+        }
+
+        const token = await signAuthToken({ userId: user.id })
+        await setAuthCookie(token)
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password: _, ...safeUser } = user
+        return SystemLogger.response(true, transl('success.signed_in'), CODE.OK, safeUser)
+    } catch (error) {
+        const _errorMessage = transl('error.unexpected_error')
+        SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
+        return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
+    }
+}
