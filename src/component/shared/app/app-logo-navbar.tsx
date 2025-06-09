@@ -10,7 +10,6 @@ const AppLogoNavbar = () => {
           <Link href={PATH_DIR.HOME}>
             <Image src={ASSET_DIR.LOGO.svg} alt={"logo"} fill priority objectFit={'contain'} />
           </Link>
-
         </div>
         <span className={'ml-3 text-lg text-left'}>
           <p className={'text-md font-bold'}>{GLOBAL.APP_NAME}</p>
