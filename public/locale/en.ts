@@ -321,6 +321,9 @@ export const en = {
   },
   go_to_bag  : 'Go to Bag',
   go_shopping: 'Go Shopping',
+  hide_password: {
+    label: 'Hide Password'
+  },
   home       : {
     label: 'Home'
   },
@@ -380,6 +383,10 @@ export const en = {
   money_back_guarantee: {
     label      : 'Money Back Guarantee',
     description: ' days money back guarantee'
+  },
+  my_ticket: {
+    label : 'My Ticket',
+    plural: 'My Tickets'
   },
   navigation: {
     account: {
@@ -582,6 +589,9 @@ export const en = {
       label: 'Shop Parts'
     }
   },
+  show_password: {
+    label: 'Show Password'
+  },
   sign_in: {
     label      : 'Sign in',
     description: 'Sign in to your account',
@@ -777,6 +787,8 @@ export const en = {
     product_created  : 'Product created',
     product_deleted  : 'Product deleted',
     product_updated  : 'Product updated',
+    signed_up        : 'Success: Signed up!',
+    signed_out       : 'Success: Signed out',
     ticket_submitted : 'Ticket submitted',
     update_order_paid: 'updateOrderToPaid was successful',
     user_created     : 'User created',
@@ -784,6 +796,7 @@ export const en = {
     user_updated     : 'User updated',
     user_signed_up   : 'User signed up',
     user_signed_in   : 'User signed in',
+    user_signed_out  : 'User signed out',
     review_updated   : 'Review updated'
   },
   error: {
@@ -798,6 +811,7 @@ export const en = {
     failed_decrypt_token      : `[AUTH]: Token decryption failed`,
     failed_set_cookie         : `[AUTH] Cookie set failed`,
     failed_remove_cookie      : `[AUTH] Cookie remove failed`,
+    failed_sign_out           : `Signing out failed`,
     gallery_save              : 'An error occurred while saving the gallery',
     invalid_credentials       : 'Invalid credentials',
     invalid_file_key          : 'Invalid file key',
@@ -817,12 +831,15 @@ export const en = {
     order_not_created         : 'Order not created',
     order_not_found           : 'Order not found',
     order_not_paid            : 'Order not paid',
+    password_mismatch         : 'Password mismatch',
     paypal_default            : "PayPal: Error Occured'",
     paypal_payment_error      : 'Error occurred while processing PayPal payment',
     product_not_found         : 'Product not found',
     sesssion_not_found        : 'Session bag id not found',
+    sign_in                   : 'Signing up failed',
     unable_delete             : 'Unable to delete file',
     unable_upload             : 'Unable to upload file',
+    unexpected_error          : 'Unexpeceted error occurred',
     unknown_error             : 'Unknown error occurred',
     update_order_paid         : 'updateOrderToPaid failed',
     user_not_authenticated    : 'User not authenticated',
