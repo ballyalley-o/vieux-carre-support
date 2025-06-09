@@ -21,7 +21,7 @@ html, body {
 }
 
 .input-default {
-  @apply p-3 border border-vcsblue-light rounded-sm focus:ring-vcsblue
+  @apply p-3 pr-10 border border-vcsblue-light rounded-sm focus:ring-vcsblue
 }
 
 .mono-contrast-button-text {
