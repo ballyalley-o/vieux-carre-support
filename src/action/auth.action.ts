@@ -1,9 +1,10 @@
 'use server'
 
+import { GLOBAL } from 'vcs'
 import { prisma } from 'vcs.db'
 import argon2 from 'argon2'
 import { SystemLogger, transl } from 'lib/utility'
-import { signAuthToken, setAuthCookie } from 'lib/auth'
+import { signAuthToken, setAuthCookie, removeAuthCookie } from 'lib/auth'
 import { CODE } from 'lib/constant'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -46,6 +47,19 @@ export async function signUp(prevState: AppResponse, formData: FormData): Promis
         return SystemLogger.response(true, _message, CODE.CREATED, user)
     } catch (error) {
         const _errorMessage = transl('error.failed_signed_up')
+        SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
+        return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
+    }
+}
+
+export async function signOut(): Promise<AppResponse> {
+    try {
+        await removeAuthCookie()
+        const _message = transl('success.user_signed_out')
+        SystemLogger.sentryLogEvent(_message, MODULE, {}, 'info')
+        return SystemLogger.response(true, _message, CODE.OK, {})
+    } catch (error) {
+        const _errorMessage = transl('error.failed_sign_out')
         SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
         return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
     }
