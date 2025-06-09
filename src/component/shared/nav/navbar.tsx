@@ -14,7 +14,7 @@ const Navbar = async () => {
         </div>
         <div className={'flex items-center space-x-4'}>
          {!user ? (
-            <Button link href={PATH_DIR.AUTH.sign_in} variant={'primary'} className={'hover:bg-gray-300 text-white transition'} label={transl('sign_in.label')} />
+            <Button link href={PATH_DIR.AUTH.sign_in} variant={'primary'} className={'text-white transition'} label={transl('sign_in.label')} />
             ) : (
             <Fragment>
               <Button link href={PATH_DIR.TICKET.new} variant={'transparent'} className={'hover:bg-gray-300 text-gray-700 transition'} label={<div className={'flex items-center gap-2 justify-center'}><span className={'icon--plus'}></span><p className={'hidden md:block'}>{transl('new_ticket.label')}</p></div>} />
