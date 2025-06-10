@@ -8,4 +8,6 @@ declare global {
     declare type AppResponseType = Promise<AppResponse>
     declare type AppButtonType   = 'submit' | 'reset' | 'button' | undefined
     declare type AppSortType     = 'newest' | 'oldest'| 'priority'
+
+    declare type UserSession     = { name: string | null; id: string; email: string } | null
 }
