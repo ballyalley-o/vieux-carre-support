@@ -6,7 +6,7 @@ import { EllipsisLoader } from 'component/shared/loader'
 import { cn } from 'lib/utility'
 import type { ButtonProps } from './button.types'
 
-const Button = ({ label, type = 'submit', variant = 'default', link, fullWidth, disabled, className, onClick, ...rest }: ButtonProps) => {
+const Button = ({ label, type = 'submit', variant = 'default', link, fullWidth, disabled, className, onClick, loadingLabel, ...rest }: ButtonProps) => {
   const { pending } = useFormStatus()
   const { href }    = rest as { href: string }
 
@@ -35,13 +35,13 @@ const Button = ({ label, type = 'submit', variant = 'default', link, fullWidth, 
   if (link) {
     return (
       <Link href={href} className={cn('p-3 rounded transition disabled:opacity-50 cursor-pointer hover:shadow-sm shadow-lg shadow-vcsblue-light text-sm', _color, className, fullWidth && 'w-full', )}>
-        {pending ? <EllipsisLoader /> : label}
+        {pending ? <EllipsisLoader label={loadingLabel} /> : label}
       </Link>)
   }
 
   return (
-    <button className={cn('p-3 rounded transition disabled:opacity-50 cursor-pointer hover:shadow-sm shadow-lg shadow-vcsblue-light text-sm', _color, className, fullWidth && 'w-full')} type={type} disabled={pending || disabled} onClick={onClick}>
-      {pending ? <EllipsisLoader /> : label}
+    <button className={cn('p-3 rounded transition disabled:opacity-50 cursor-pointer hover:shadow-sm shadow-lg shadow-vcsblue-light text-sm h-12', _color, className, fullWidth && 'w-full')} type={type} disabled={pending || disabled} onClick={onClick}>
+      {pending ? <EllipsisLoader label={loadingLabel} /> : label}
     </button>
   )
 }
