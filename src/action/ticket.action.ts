@@ -8,17 +8,24 @@ import { Prisma, TicketPriority } from '@prisma/client'
 import { SystemLogger } from "lib/utility/app-logger"
 import { CODE, KEY } from "lib/constant"
 import { transl, formatToPlainObject } from 'lib/utility'
+import { getSession } from 'lib/session'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const TAG    = 'Ticket.Action'
 const MODULE = 'ticket'
 export async function createTicket(prevState: AppResponse, formData: FormData): AppResponseType {
     try {
+        const user = await getSession()
+
+        if (!user) {
+          SystemLogger.sentryLogEvent(transl('error.unauthorized_ticket_create'), MODULE, {}, 'warning')
+          return SystemLogger.response(false, transl('error.unable_create_ticket'), CODE.UNAUTHORIZED, {})
+        }
         const subject     = formData.get('subject') as string
         const description = formData.get('description') as string
         const priority    = formData.get('priority') as TicketPriority
 
-        const _data = { subject, description, priority }
+        const _data = { subject, description, priority, user: { connect: { id: user.id }} }
 
         if (!subject || !description || !priority) {
             SystemLogger.sentryLogEvent(transl('error.missing_field'), MODULE, _data, 'warning')
