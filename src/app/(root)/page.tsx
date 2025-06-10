@@ -6,7 +6,7 @@ import { Button } from 'component/shared/button'
 
 const HomePage = () => {
   return (
-    <main className={'flex flex-col text-center items-center justify-center min-h-screen px-4 gap-y-5'}>
+    <main className={'flex flex-row text-center items-center pb-20 justify-center min-h-screen px-4 gap-y-5'}>
       <div className={'flex flex-col text-center items-center justify-center w-[500px] h-auto px-4 gap-y-5'}>
         <AppLogo />
         <div className={'flex flex-col md:flex-row gap-4 justify-center w-[350px] animate-slide opacity-0'}>
