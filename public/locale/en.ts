@@ -319,12 +319,12 @@ export const en = {
     label      : 'Go Back to Tickets',
     description: 'Go Back to Home page'
   },
-  go_to_bag  : 'Go to Bag',
-  go_shopping: 'Go Shopping',
+  go_to_bag    : 'Go to Bag',
+  go_shopping  : 'Go Shopping',
   hide_password: {
     label: 'Hide Password'
   },
-  home       : {
+  home: {
     label: 'Home'
   },
   hour: {
@@ -595,11 +595,13 @@ export const en = {
   sign_in: {
     label      : 'Sign in',
     description: 'Sign in to your account',
-    google     : 'Sign in with Google'
+    google     : 'Sign in with Google',
+    loading    : 'Signing in'
   },
   sign_up: {
     label      : 'Sign up',
-    description: 'Complete the form with your information'
+    description: 'Complete the form with your information',
+    loading    : 'Signing up'
   },
   sign_out: {
     label      : 'Sign out',
@@ -765,7 +767,7 @@ export const en = {
     }
   },
   http_response: {
-    "404": {
+    '404': {
       label      : 'Page not found',
       description: 'The page you are looking for might have been removed had its name changed or is temporarily unavailable.'
     }
@@ -842,6 +844,8 @@ export const en = {
     sign_in                   : 'Signing up failed',
     unable_delete             : 'Unable to delete file',
     unable_upload             : 'Unable to upload file',
+    unable_create_ticket      : `Unable to create ticket, user must be signed-in.`,
+    unauthorized_ticket_create: `[UNAUTHORIZED]: Unauthorized ticket creation attempt`,
     unexpected_error          : 'Unexpeceted error occurred',
     unknown_error             : 'Unknown error occurred',
     update_order_paid         : 'updateOrderToPaid failed',
