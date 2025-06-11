@@ -1,0 +1,1 @@
+export { default as TitleWithIcon } from './title-with-icon'
