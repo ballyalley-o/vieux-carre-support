@@ -3,8 +3,9 @@
 import { GLOBAL } from 'vcs'
 import { prisma } from 'vcs.db'
 import argon2 from 'argon2'
-import { SystemLogger, transl } from 'lib/utility'
+import { UserRole } from '@prisma/client'
 import { signAuthToken, setAuthCookie, removeAuthCookie } from 'lib/auth'
+import { SystemLogger, transl } from 'lib/utility'
 import { CODE } from 'lib/constant'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -16,13 +17,15 @@ export async function signUp(prevState: AppResponse, formData: FormData): Promis
         const email    = formData.get('email') as string
         const password = formData.get('password') as string
 
+        const isAdmin = GLOBAL.ADMIN_EMAILS.includes(email)
+        const role    = isAdmin ? UserRole.ADMIN : UserRole.USER
+
         if (!name || !email || !password) {
             const _errorMessage = transl('error.validation_error', { error: 'missing fields' })
-            SystemLogger.sentryLogEvent(_errorMessage, MODULE, { name, email }, 'warning')
+            SystemLogger.sentryLogEvent(_errorMessage, MODULE, { name, email, role }, 'warning')
             return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
         }
 
-        // check user exists
         const existingUser = await prisma.user.findUnique({ where: { email }})
         if (existingUser) {
             const _errorMessage = transl('error.exists_default', { document: email })
@@ -39,7 +42,7 @@ export async function signUp(prevState: AppResponse, formData: FormData): Promis
           parallelism: parseInt(PARALLELISM, 10)
         })
 
-        const user  = await prisma.user.create({ data: { name, email, password: hashedPassword }})
+        const user  = await prisma.user.create({ data: { name, email, password: hashedPassword, role }})
         const token = await signAuthToken({ userId: user.id })
         await setAuthCookie(token)
         const _message = transl('success.created_default', { value: 'User signed up', id: user.id })
@@ -48,7 +51,7 @@ export async function signUp(prevState: AppResponse, formData: FormData): Promis
     } catch (error) {
         const _errorMessage = transl('error.failed_signed_up')
         SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
-        return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
+        return SystemLogger.response(false, transl('error.failed_signed_up_user'), CODE.BAD_REQUEST, {})
     }
 }
 
