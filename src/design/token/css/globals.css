@@ -46,6 +46,10 @@ html, body {
   --color-priority-low   : var(--color-vcsgreen);
   --color-priority-medium: var(--color-vcsyellow);
   --color-priority-high  : var(--color-vcsred);
+  --color-status-closed  : var(--color-vcsred);
+  --color-status-pending : var(--color-gray-300);
+  --color-status-open    : var(--color-purple-600);
+  --color-status-resolved: var(--color-purple-600);
   --radius-sm            : calc(var(--radius) - 6px);
   --radius-sm            : calc(var(--radius) - 4px);
   --radius-md            : calc(var(--radius) - 2px);
