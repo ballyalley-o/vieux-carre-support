@@ -4,7 +4,7 @@ import { GLOBAL } from 'vcs'
 import { prisma } from 'vcs.db'
 import { PATH_DIR } from 'vcs.dir'
 import { revalidatePath } from 'next/cache'
-import { Prisma, TicketPriority } from '@prisma/client'
+import { Prisma, TicketPriority, UserRole } from '@prisma/client'
 import { SystemLogger } from "lib/utility/app-logger"
 import { CODE, KEY } from "lib/constant"
 import { transl, formatToPlainObject } from 'lib/utility'
@@ -90,5 +90,43 @@ export async function getTicketById(ticketId: number) {
     const _errorMessage = transl(`error.failed_fetch_default`, { value: MODULE })
     SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
     return null
+  }
+}
+
+export async function closeTicket(prevState: AppResponse, formData: FormData): Promise<AppResponse> {
+  try {
+    const ticketId = Number(formData.get('ticketId'))
+
+    if (!ticketId) {
+      const _errorMessage =  transl('error.validation_required_default', { field: 'ticketId' })
+      SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'warning')
+      return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
+    }
+
+    const user = await getSession()
+
+    if (!user) {
+      const _errorMessage = transl('error.unauthorized')
+      SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'warning')
+      return SystemLogger.response(false, _errorMessage, CODE.UNAUTHORIZED, {})
+    }
+
+    const ticket = await prisma.ticket.findUnique({ where: { id: ticketId }})
+
+    if (!ticket || ticket.userId !== user.id || user.role !== UserRole.ADMIN) {
+      const _errorMessage = transl('error.unauthorized_ticket_close')
+      SystemLogger.sentryLogEvent(_errorMessage, MODULE, { ticketId, userId: user.id }, 'warning')
+      return SystemLogger.response(false, transl('error.unauthorized_user'), CODE.UNAUTHORIZED, {})
+    }
+
+    await prisma.ticket.update({ where: { id: ticketId }, data: { status: 'CLOSED' }})
+    revalidatePath(PATH_DIR.TICKET.root)
+    revalidatePath(PATH_DIR.TICKET.id(ticketId))
+
+    return SystemLogger.response(true, transl('success.ticket_closed'), CODE.OK, {})
+  } catch (error) {
+    const _errorMessage = transl('error.error_close_ticket')
+    SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
+    return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
   }
 }
