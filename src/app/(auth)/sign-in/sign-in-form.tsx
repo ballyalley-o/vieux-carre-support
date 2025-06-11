@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect } from 'react'
 import { PATH_DIR } from "vcs.dir"
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { signUp } from "action/auth.action"
 import { toast } from "sonner"
 import { AppAuthRedir } from 'component/shared/app'
@@ -16,16 +16,18 @@ interface SignUpFormProps {
 }
 
 const SignUpForm = ({ action }: SignUpFormProps) => {
-    const [state, formAction]             = useActionState(action, RESPONSE.DEFAULT)
-    const router                          = useRouter()
+    const [state, formAction] = useActionState(action, RESPONSE.DEFAULT)
+    const router              = useRouter()
+    const searchParams        = useSearchParams()
+    const callbackUrl         = searchParams.get('callbackUrl') || PATH_DIR.HOME
 
     useEffect(() => {
       if (state.success) {
         toast.success(transl('success.signed_in'))
-        router.push(PATH_DIR.HOME)
+        router.push(callbackUrl)
         router.refresh()
       }
-    }, [state.success, router])
+    }, [state.success, router, callbackUrl])
 
     const renderStateMessage       = state.message && !state.success && <p className = {'text-red-500 mb-4 text-center'}>{state.message}</p>
 
