@@ -54,18 +54,21 @@ const TicketPage = async ({ params }: TicketPageProps) => {
             <p className={'text-xl'}>{new Date(ticket.createdAt).toLocaleString()}</p>
           </div>
 
-          <Button
-            link
-            href={PATH_DIR.TICKET.root}
-            variant={'primary'}
-            label={
-              <Fragment>
-                <MdArrowBack className={''} />
-                <h2 className={''}>{transl('go_back_tickets.label')}</h2>
-              </Fragment>
-            }
-            className={'w-[150px] flex justify-start items-center bg-vcsblue gap-2 text-white px-4 py-2 rounded-sm hover:bg-blue-700 transition'}
-          />
+          <div className={'flex items-center gap-2'}>
+            <Button
+              link
+              href={PATH_DIR.TICKET.root}
+              variant={'primary'}
+              label={
+                <Fragment>
+                  <MdArrowBack className={''} />
+                  <h2>{transl('go_back_tickets.label')}</h2>
+                </Fragment>
+              }
+              className={'w-[150px] flex justify-start items-center bg-vcsblue gap-2 text-white px-4 py-2 rounded-sm hover:bg-blue-700 transition'}
+            />
+            <TicketCloseButton ticketId={ticketId} isClosed={ticket.status === TicketStatus.CLOSED} />
+          </div>
         </div>
       </div>
     )
