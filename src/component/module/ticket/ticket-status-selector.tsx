@@ -1,10 +1,11 @@
 'use client'
 
-import { Fragment, useTransition, useState, useEffect, useRef } from 'react'
+import { Fragment, useState, useEffect, useRef } from 'react'
 import { TicketStatus, UserRole } from '@prisma/client'
 import { updateTicketStatus } from 'action/ticket.action'
-import { Button } from 'component/shared/button'
+import { toast } from 'sonner'
 import { FaChevronDown } from 'react-icons/fa'
+import { Button } from 'component/shared/button'
 import { cn, formatText, transl } from 'lib/utility'
 
 interface TicketStatusSelectorProps {
@@ -15,10 +16,9 @@ interface TicketStatusSelectorProps {
 
 function TicketStatusSelector({ ticketId, currentStatus, userRole }: TicketStatusSelectorProps) {
   const [dropdown, setDropdown]      = useState(false)
-  const [isPending, startTransition] = useTransition()
-
   const dropdownRef = useRef<HTMLDivElement>(null)
 
+  const isResolved = currentStatus === TicketStatus.RESOLVED
   useEffect(() => {
     function handleClickOutSide(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -36,25 +36,28 @@ function TicketStatusSelector({ ticketId, currentStatus, userRole }: TicketStatu
   if (userRole !== UserRole.ADMIN) {
     return (
       <div className={''}>
-        <h2 className="text-lg font-semibold mb-2">{transl('status.label')}</h2>
-        <p className={cn('text-xl font-bold', `text-priority-${formatText(currentStatus, 'lowercase')}`)}>
+        <h2 className={'text-lg font-semibold mb-2'}>{transl('status.label')}</h2>
+        <p className={cn('text-xl font-bold', `text-priority-${(formatText(currentStatus, 'lowercase'), isResolved && 'text-purple-600')}`)}>
           {formatText(currentStatus, 'capitalize')}
         </p>
       </div>
     )
   }
 
-  const handleStatusChange = (newStatus: TicketStatus) => {
-    startTransition(() => {
-      updateTicketStatus(ticketId, newStatus)
+  const handleStatusChange = async (newStatus: TicketStatus) => {
       setDropdown(false)
-    })
+      try {
+        await updateTicketStatus(ticketId, newStatus)
+      } catch (error:unknown) {
+        toast.error((error as Error).message)
+        console.error('Status update failed:', error)
+      }
   }
 
   const statusOptions: { icon: string, status: TicketStatus }[] = [{ icon: 'icon-outline--open', status: 'OPEN' }, { icon: 'icon-outline--pending', status: 'PENDING' }, { icon:'icon-outline--resolved', status: 'RESOLVED'}, { icon: 'icon-outline--closed', status: 'CLOSED'}]
 
   return (
-    <div className={'inline-block bg-gray-200 border-gray-200 border-4'}>
+    <div ref={dropdownRef} className={'inline-block bg-gray-200 border-gray-200 border-4'}>
       <div className={'relative flex items-center gap-1 border-blue-200'}>
         <Button
           variant={'transparent'}
@@ -63,7 +66,7 @@ function TicketStatusSelector({ ticketId, currentStatus, userRole }: TicketStatu
             <Fragment>
               <div className={'flex items-center gap-2'}>
                 <span className={cn(`icon-outline--${currentStatus.toLowerCase()}`)}></span>
-                <p className={'text-lg font-semibold'}>{formatText(currentStatus, 'capitalize')}</p>
+                <p className={cn('text-lg font-semibold', isResolved && 'text-purple-600')}>{formatText(currentStatus, 'capitalize')}</p>
               </div>
             </Fragment>
           }
@@ -81,7 +84,10 @@ function TicketStatusSelector({ ticketId, currentStatus, userRole }: TicketStatu
         />
 
         {dropdown && (
-          <div className={'absolute left-full top-0 ml-2 z-10 mt-1 bg-blue-50 w-52 bg-gradient-to-br border border-gray-300 shadow-md rounded-md spacing-2 p-2'}>
+          <div
+            className={
+              'absolute left-full top-0 ml-2 z-10 mt-1 bg-blue-50 w-52 bg-gradient-to-br border border-gray-300 shadow-md rounded-md spacing-2 p-2'
+            }>
             {statusOptions.map(({ status, icon }, _i) => (
               <button
                 key={_i}
@@ -90,7 +96,7 @@ function TicketStatusSelector({ ticketId, currentStatus, userRole }: TicketStatu
                   status === currentStatus && 'font-bold text-vcsblue bg-blue-100/20'
                 )}
                 onClick={() => handleStatusChange(status)}
-                disabled={isPending || status === currentStatus}>
+                disabled={status === currentStatus}>
                 <div className={'flex items-center gap-2'}>
                   <span className={icon}></span>
                   {formatText(status, 'capitalize')}
@@ -107,3 +113,5 @@ function TicketStatusSelector({ ticketId, currentStatus, userRole }: TicketStatu
 
 
 export default TicketStatusSelector
+
+
