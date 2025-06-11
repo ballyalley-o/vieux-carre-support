@@ -38,6 +38,12 @@ const TicketPage = async ({ params }: TicketPageProps) => {
             <p className={'text-xl'}>{ticket.description}</p>
           </div>
           <div className={''}>
+            <h2 className="text-lg font-semibold mb-2">{transl('status.label')}</h2>
+            <p className={cn('text-xl font-bold', `text-priority-${formatText(ticket.status, 'lowercase')}`)}>
+              {formatText(ticket.status, 'capitalize')}
+            </p>
+          </div>
+          <div className={''}>
             <h2 className="text-lg font-semibold mb-2">{transl('priority.label')}</h2>
             <p className={cn('text-xl font-bold', `text-priority-${formatText(ticket.priority, 'lowercase')}`)}>
               {formatText(ticket.priority, 'capitalize')}
