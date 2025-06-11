@@ -1,9 +1,11 @@
 import { Fragment } from 'react'
 import { PATH_DIR } from 'vcs.dir'
 import { notFound } from 'next/navigation'
+import { TicketStatus } from '@prisma/client'
 import { getTicketById } from "action/ticket.action"
 import { MdArrowBack } from 'react-icons/md'
 import { FaCircle } from 'react-icons/fa'
+import { TicketCloseButton } from 'component/module/ticket'
 import { BackButton, Button } from 'component/shared/button'
 import { cn, SystemLogger, transl, unformatTicketId, formatText } from "lib/utility"
 
