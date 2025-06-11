@@ -4,7 +4,7 @@ import { GLOBAL } from 'vcs'
 import { prisma } from 'vcs.db'
 import { PATH_DIR } from 'vcs.dir'
 import { revalidatePath } from 'next/cache'
-import { Prisma, TicketPriority, UserRole } from '@prisma/client'
+import { Prisma, TicketPriority, TicketStatus, UserRole } from '@prisma/client'
 import { SystemLogger } from "lib/utility/app-logger"
 import { CODE, KEY } from "lib/constant"
 import { transl, formatToPlainObject } from 'lib/utility'
@@ -90,6 +90,32 @@ export async function getTicketById(ticketId: number) {
     const _errorMessage = transl(`error.failed_fetch_default`, { value: MODULE })
     SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
     return null
+  }
+}
+
+export async function updateTicketStatus(ticketId: number, status: TicketStatus) {
+  try {
+    const ticket = await prisma.ticket.findUnique({ where: { id: ticketId }, include: { user: { select: { id: true, role: true }} }})
+    if (!ticket) {
+      const _errorMessage = transl('error.not_found_default', { value: 'ticket' })
+      SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'warning')
+      return SystemLogger.response(false, _errorMessage, CODE.NOT_FOUND, {})
+    }
+
+    const user   = await getSession()
+    if (user?.role !== UserRole.ADMIN || user.id !== ticket.userId) {
+      SystemLogger.sentryLogEvent(transl('error.unauthorized'), MODULE, { user }, 'warning')
+      return SystemLogger.response(false, transl('error.unauthorized_user'), CODE.UNAUTHORIZED, { user })
+    }
+
+    await prisma.ticket.update({ where: { id: ticketId }, data: { status }})
+    revalidatePath(PATH_DIR.TICKET.id(ticketId))
+
+    return SystemLogger.response(true, transl('success.updated'), CODE.OK, { ticket })
+  } catch (error) {
+      const _errorMessage = transl(`error.unexpected_error`, { value: MODULE })
+      SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
+      return SystemLogger.response(false, _errorMessage, CODE.INTERNAL_SERVER_ERROR, {})
   }
 }
 
