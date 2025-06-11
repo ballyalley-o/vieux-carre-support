@@ -1,3 +1,5 @@
+'use client'
+
 import { JSX, ReactNode, useState } from "react"
 import { FaAngleUp, FaAngleDown } from "react-icons/fa"
 
