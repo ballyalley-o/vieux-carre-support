@@ -103,7 +103,7 @@ export async function updateTicketStatus(ticketId: number, status: TicketStatus)
     }
 
     const user   = await getSession()
-    if (user?.role !== UserRole.ADMIN || user.id !== ticket.userId) {
+    if (user?.role !== UserRole.ADMIN && user?.id !== ticket.userId) {
       SystemLogger.sentryLogEvent(transl('error.unauthorized'), MODULE, { user }, 'warning')
       return SystemLogger.response(false, transl('error.unauthorized_user'), CODE.UNAUTHORIZED, { user })
     }
