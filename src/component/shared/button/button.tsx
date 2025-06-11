@@ -22,7 +22,7 @@ const Button = ({ label, type = 'submit', variant = 'default', link, fullWidth, 
       _color = 'bg-transparent hover:bg-vcsblue-light/10 border border-vcsblue hover:border-vcsblue-light'
       break
     case 'transparent':
-      _color = 'bg-transparent hover:bg-vcsblue-light/10 shadow-none hover:shadow-none'
+      _color = 'bg-transparent hover:bg-vcsblue-light/10 shadow-none hover:shadow-none disable:text-gray-400'
       break
     case 'desctructive':
       _color = 'bg-vcsred hover:bg-vcsred-dark shadow-none hover:shadow-none'
