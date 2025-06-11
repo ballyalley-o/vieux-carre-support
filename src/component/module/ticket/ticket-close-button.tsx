@@ -32,7 +32,7 @@ const TicketCloseButton = ({ ticketId, isClosed }: TicketCloseButtonProps) => {
           loadingLabel={transl('close_ticket.loading')}
           label={
             <Fragment>
-              <span className={'icon--ticket-check-outline'}></span>
+              <span className={'icon-outline--closed'}></span>
               <h2>{transl('close_ticket.label')}</h2>
             </Fragment>
           }
