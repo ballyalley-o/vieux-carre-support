@@ -39,6 +39,7 @@ const envSchema = z.object({
   HASH_MEMORY_COST           : z.string().min(1, _msg('HASH_MEMORY_COST')),
   HASH_TIME_COST             : z.string().min(1, _msg('HASH_TIME_COST')),
   HASH_PARALLELISM           : z.string().min(1, _msg('HASH_PARALLELISM')),
+  ADMIN_EMAILS               : z.string().min(1, _msg('ADMIN_EMAILS'))
 })
 
 let parsedEnv: z.infer<typeof envSchema> | null = null
@@ -72,6 +73,7 @@ function getEnv() {
       HASH_MEMORY_COST           : '19456',
       HASH_TIME_COST             : '2',
       HASH_PARALLELISM           : '1',
+      ADMIN_EMAILS               : ''
     }
   }
 
@@ -117,6 +119,9 @@ export const GLOBAL = {
       TIME_COST  : getEnv().HASH_TIME_COST,
       PARALLELISM: getEnv().HASH_PARALLELISM
     }
+  },
+  get ADMIN_EMAILS() {
+    return getEnv().ADMIN_EMAILS.split(';')
   },
   LIMIT: {
     PAGE_SIZE: 7
