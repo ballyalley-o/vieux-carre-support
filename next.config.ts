@@ -3,16 +3,7 @@ import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
   basePath   : '/support',
-  assetPrefix: '/support',
-  async redirects() {
-    return [
-      {
-        source     : '/',
-        destination: '/support',
-        permanent  : false
-      }
-    ]
-  }
+  assetPrefix: '/support'
 }
 
 export default withSentryConfig(nextConfig, {
