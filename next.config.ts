@@ -1,11 +1,18 @@
-import {withSentryConfig} from "@sentry/nextjs";
-import type { NextConfig } from "next";
-
-const isProxyHost = process.env.VERCEL_URL !== 'true'
+import {withSentryConfig} from "@sentry/nextjs"
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  basePath   : isProxyHost ?  '/support': '',
-  assetPrefix: isProxyHost ?  '/support': '',
+  basePath   : '/support',
+  assetPrefix: '/support',
+  async redirects() {
+    return [
+      {
+        source     : '/',
+        destination: '/support',
+        permanent  : false
+      }
+    ]
+  }
 }
 
 export default withSentryConfig(nextConfig, {
