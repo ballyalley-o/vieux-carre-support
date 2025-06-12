@@ -639,6 +639,9 @@ export const en = {
   subtotal: {
     label: 'Subtotal'
   },
+  support: {
+    label: 'Support'
+  },
   support_ticket: {
     label : 'Support Ticket',
     plural: 'Support Tickets'
