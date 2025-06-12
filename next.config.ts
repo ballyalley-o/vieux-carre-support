@@ -1,7 +1,7 @@
 import {withSentryConfig} from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
-const isProxyHost = process.env.VERCEL_URL === 'vieux-carre.vercel.app'
+const isProxyHost = process.env.VERCEL_URL !== 'true'
 
 const nextConfig: NextConfig = {
   basePath   : isProxyHost ?  '/support': '',
