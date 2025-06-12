@@ -40,7 +40,7 @@ const envSchema = z.object({
   HASH_TIME_COST             : z.string().min(1, _msg('HASH_TIME_COST')),
   HASH_PARALLELISM           : z.string().min(1, _msg('HASH_PARALLELISM')),
   ADMIN_EMAILS               : z.string().min(1, _msg('ADMIN_EMAILS')),
-  PROXY_HOST                 : z.string().min(1, _msg('PROXY_HOST'))
+  VERCEL_URL                 : z.string().min(1, _msg('VERCEL_URL'))
 })
 
 let parsedEnv: z.infer<typeof envSchema> | null = null
@@ -75,7 +75,7 @@ function getEnv() {
       HASH_TIME_COST             : '2',
       HASH_PARALLELISM           : '1',
       ADMIN_EMAILS               : '',
-      PROXY_HOST                 : ''
+      VERCEL_URL                 : ''
     }
   }
 
@@ -107,11 +107,11 @@ export const GLOBAL = {
   },
   get AUTH() {
     return {
-      SECRET: getEnv().AUTH_SECRET,
+      SECRET    : getEnv().AUTH_SECRET,
       TOKEN_NAME: getEnv().AUTH_TOKEN_NAME,
-      ALG: getEnv().AUTH_ALG,
-      EXP_TIME: getEnv().AUTH_EXP_TIME,
-      MAX_AGE: 60 * 60 * 24
+      ALG       : getEnv().AUTH_ALG,
+      EXP_TIME  : getEnv().AUTH_EXP_TIME,
+      MAX_AGE   : 60 * 60 * 24
     }
   },
   get HASH() {
@@ -125,8 +125,8 @@ export const GLOBAL = {
   get ADMIN_EMAILS() {
     return getEnv().ADMIN_EMAILS.split(';')
   },
-  get PROXY_HOST() {
-    return getEnv().PROXY_HOST
+  get VERCEL_URL() {
+    return getEnv().VERCEL_URL
   },
   LIMIT: {
     PAGE_SIZE: 7
