@@ -1,6 +1,6 @@
 ![App Icon](/public/image/svg/vieux-carre-support.svg) &nbsp;
 
-## Vieux Carre Support
+## Vieux Carré Support
 
 ## Description
-**Vieux Carre Support** is a microfrontend to support Vieux Carre customer issues built with Next.js using Tailwind CSS as a styling framework, written in TypeScript. It is a support application in offering support to Vieux-Carre Customers.
+**Vieux Carré Support** is a microfrontend support application for Vieux Carré, built with Next.js using Tailwind CSS as a styling framework, written in TypeScript. It is designed to assist Vieux Carré customers by providing access to support-related features and services. The application is deployed independently and integrated into the main platform.
