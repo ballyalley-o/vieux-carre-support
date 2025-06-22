@@ -1,4 +1,5 @@
 name: "Problem, or a bug"
+title: "[Bug] "
 description: If you have a problem, bug, or enhancement with a resource in this resource module.
 
 body:
