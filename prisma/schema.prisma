@@ -33,8 +33,8 @@ model Ticket {
 }
 
 enum UserRole {
-  ADMIN
-  USER
+  admin
+  user
 }
 
 model User {
@@ -42,7 +42,7 @@ model User {
   email     String   @unique
   name      String?
   password  String
-  role      UserRole @default(USER)
+  role      String   @default("user")
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
   tickets   Ticket[]
