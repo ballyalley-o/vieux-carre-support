@@ -2,7 +2,7 @@
 
 import { GLOBAL } from 'vcs'
 import { prisma } from 'vcs.db'
-import argon2 from 'argon2'
+import bcrypt from 'bcryptjs'
 import { UserRole } from '@prisma/client'
 import { signAuthToken, setAuthCookie, removeAuthCookie } from 'lib/auth'
 import { SystemLogger, transl } from 'lib/utility'
@@ -33,14 +33,7 @@ export async function signUp(prevState: AppResponse, formData: FormData): Promis
             return SystemLogger.response(false, _errorMessage, CODE.CONFLICT, {})
         }
 
-        const { MEMORY_COST, TIME_COST, PARALLELISM } = GLOBAL.HASH
-
-        const hashedPassword = await argon2.hash(password, {
-          type       : argon2.argon2id,
-          memoryCost : parseInt(MEMORY_COST, 10),
-          timeCost   : parseInt(TIME_COST, 10),
-          parallelism: parseInt(PARALLELISM, 10)
-        })
+        const hashedPassword = await bcrypt.hash(password, GLOBAL.HASH.SALT_ROUNDS)
 
         const user  = await prisma.user.create({ data: { name, email, password: hashedPassword, role }})
         const token = await signAuthToken({ userId: user.id })
@@ -87,7 +80,7 @@ export async function signIn(prevState: AppResponse, formData: FormData): Promis
             return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
         }
 
-        const isMatch = await argon2.verify(user.password, password)
+        const isMatch = await bcrypt.compare(password, user.password)
 
         if (!isMatch) {
             const _errorMessage = transl('error.incorrect_password')
