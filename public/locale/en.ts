@@ -455,9 +455,6 @@ export const en = {
   paid_at: {
     label: 'Paid At'
   },
-  password: {
-    label: 'Password'
-  },
   payment: {
     label: 'Payment'
   },
