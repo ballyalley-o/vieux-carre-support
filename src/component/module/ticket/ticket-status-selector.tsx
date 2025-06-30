@@ -33,7 +33,7 @@ function TicketStatusSelector({ ticketId, currentStatus, userRole }: TicketStatu
     }
   }, [])
 
-  if (userRole !== UserRole.ADMIN) {
+  if (userRole !== UserRole.admin) {
     return (
       <div className={''}>
         <h2 className={'text-lg font-semibold mb-2'}>{transl('status.label')}</h2>
