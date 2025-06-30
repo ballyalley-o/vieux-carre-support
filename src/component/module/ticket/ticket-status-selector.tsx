@@ -15,7 +15,7 @@ interface TicketStatusSelectorProps {
 }
 
 function TicketStatusSelector({ ticketId, currentStatus, userRole }: TicketStatusSelectorProps) {
-  const [dropdown, setDropdown]      = useState(false)
+  const [dropdown, setDropdown] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const isResolved = currentStatus === TicketStatus.RESOLVED

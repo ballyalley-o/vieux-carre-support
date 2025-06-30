@@ -41,10 +41,6 @@ const SignUpForm = ({ action }: SignUpFormProps) => {
           <RHFFormField control={control} name={'email'} formKey={'email'} disabled={isSubmitting} withWrapper />
           <RHFPasswordField control={control} register={register} name={'password'} formKey={'password'} disabled={isSubmitting} withWrapper />
           <RHFPasswordField control={control} register={register} name={'confirmPassword'} formKey={'confirm_password'} disabled={isSubmitting} withWrapper />
-          {/* <input className={'w-full input-default'} type="text" name={'name'} autoCapitalize={'on'} placeholder={transl('form.name.placeholder')} required />
-          <input className={'w-full input-default'} type="email" name={'email'} autoComplete={'email'} placeholder={transl('form.email.placeholder')} required />
-          <FormPasswordInput name={'password'} />
-          <FormPasswordInput name={'confirmPassword'} setConfirmPassword={setConfirmPassowrd} /> */}
           <Button variant={'default'} label={transl('sign_up.label')} loadingLabel={transl('sign_up.loading')} fullWidth />
           <AppAuthRedir type={'sign-up'}/>
         </form>
