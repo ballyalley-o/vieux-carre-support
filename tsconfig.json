@@ -19,16 +19,17 @@
       }
     ],
     "paths": {
-      "*"                 : ["./src/*"],
-      "vcs.locale"        : ["./public/locale"],
-      "vcs"               : ["./src/config/global.ts"],
-      "vcs.client"        : ["./src/config/global.client.ts"],
-      "vcs.db"            : ["./src/db/prisma.ts"],
-      "vcs.design"        : ["./src/design/token"],
-      "vcs.design-css"    : ["./src/design/token/css/globals.css"],
-      "vcs.design-gen-css": ["./src/design/token/css/token.css"],
-      "vcs.dir"           : ["./src/config/dir"],
-      "vcs.nav"           : ["./src/config/nav.ts"]
+      "*"                       : ["./src/*"],
+      "vcs.locale"              : ["./public/locale"],
+      "vcs"                     : ["./src/config/global.ts"],
+      "vcs.client"              : ["./src/config/global.client.ts"],
+      "vcs.db"                  : ["./src/db/prisma.ts"],
+      "vcs.design"              : ["./src/design/token"],
+      "vcs.design-css"          : ["./src/design/token/css/globals.css"],
+      "vcs.design-gen-css"      : ["./src/design/token/css/token.css"],
+      "vcs.dir"                 : ["./src/config/dir"],
+      "vcs.nav"                 : ["./src/config/nav.ts"],
+      "vieux-carre.authenticate": ["./vieux-carre.authenticate"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/**/*.ts", "src/component/shared**/*.tsx", "src/interface/**/*.ts", "src/types/**/*.ts"],

@@ -4,7 +4,7 @@ import { GLOBAL } from 'vcs'
 import { prisma } from 'vcs.db'
 import { PATH_DIR } from 'vcs.dir'
 import { revalidatePath } from 'next/cache'
-import { Prisma, TicketPriority, TicketStatus, UserRole } from '@prisma/client'
+import { Prisma, TicketPriority, TicketStatus } from 'vieux-carre.authenticate'
 import { SystemLogger } from "lib/utility/app-logger"
 import { CODE, KEY } from "lib/constant"
 import { transl, formatToPlainObject } from 'lib/utility'
@@ -103,7 +103,7 @@ export async function updateTicketStatus(ticketId: number, status: TicketStatus)
     }
 
     const user   = await getSession()
-    if (user?.role !== UserRole.ADMIN && user?.id !== ticket.userId) {
+    if (user?.role !== 'admin' && user?.id !== ticket.userId) {
       SystemLogger.sentryLogEvent(transl('error.unauthorized'), MODULE, { user }, 'warning')
       return SystemLogger.response(false, transl('error.unauthorized_user'), CODE.UNAUTHORIZED, { user })
     }
@@ -139,7 +139,7 @@ export async function closeTicket(prevState: AppResponse, formData: FormData): P
 
     const ticket = await prisma.ticket.findUnique({ where: { id: ticketId }})
 
-    if (!ticket || ticket.userId !== user.id || user.role !== UserRole.ADMIN) {
+    if (!ticket || ticket.userId !== user.id || user.role !== 'admin') {
       const _errorMessage = transl('error.unauthorized_ticket_close')
       SystemLogger.sentryLogEvent(_errorMessage, MODULE, { ticketId, userId: user.id }, 'warning')
       return SystemLogger.response(false, transl('error.unauthorized_user'), CODE.UNAUTHORIZED, {})

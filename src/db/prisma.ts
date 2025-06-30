@@ -1,5 +1,5 @@
 import { GLOBAL } from 'vcs'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from 'vieux-carre.authenticate'
 import { KEY } from 'lib/constant'
 
 
@@ -9,5 +9,4 @@ const globalForPrisma = globalThis as unknown as {
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient()
 
-if (GLOBAL.NODE_ENV !== KEY.PRODUCTION)
-globalForPrisma.prisma = prisma
+if (GLOBAL.NODE_ENV !== KEY.PRODUCTION) globalForPrisma.prisma = prisma

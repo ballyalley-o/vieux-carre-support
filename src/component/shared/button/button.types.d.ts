@@ -4,6 +4,7 @@ export type ButtonVariantType = 'default' | 'primary' | 'secondary' | 'outline' 
 export type ButtonTypeProps = {
   type        ?: AppButtonType
   label        : ReactNode
+  loading     ?: boolean
   loadingLabel?: string
   variant      : ButtonVariantType
   link        ?: false
@@ -15,6 +16,7 @@ export type ButtonTypeProps = {
 
 export type LinkButtonTypeProps = {
   label        : ReactNode
+  loading     ?: boolean
   loadingLabel?: string
   variant      : ButtonVariantType
   link         : true

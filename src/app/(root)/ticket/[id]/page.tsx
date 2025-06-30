@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { User, UserRole } from '@prisma/client'
+import { User } from '@prisma/client'
 import { getTicketById } from 'action/ticket.action'
 import { TicketStatusSelector, TicketCardTitle, TicketFormControl } from 'component/module/ticket'
 import { BackButton } from 'component/shared/button'
@@ -18,7 +18,7 @@ const TicketPage = async ({ params }: TicketPageProps) => {
   const ticket   = await getTicketById(ticketId)
   const user     = await getSession()
 
-  const isAdmin = user && user.role === UserRole.ADMIN
+  const isAdmin = user && user.role === 'admin'
   const isOwner = user && user.id === ticket.userId
 
   if (!ticket) {
@@ -40,7 +40,7 @@ const TicketPage = async ({ params }: TicketPageProps) => {
       <div className={'w-auto md:w-[500px] mx-auto bg-blue-50 rounded-sm border border-gray-200 p-8 space-y-6'}>
         <TicketCardTitle subject={ticket.subject} priority={ticket.priority} />
         <FormViewField label={transl('form.description.label')} value={ticket.description} />
-        <TicketStatusSelector ticketId={ticketId} currentStatus={ticket.status} userRole={user ? (user as User).role : UserRole.USER} />
+        <TicketStatusSelector ticketId={ticketId} currentStatus={ticket.status} userRole={user ? (user as User).role as UserRoleType : 'user'} />
         <FormViewField label={transl('priority.label')} value={formatText(ticket.priority, 'capitalize')} className={cn('text-xl font-bold', `text-priority-${formatText(ticket.priority, 'lowercase')}`)} />
         <FormViewField label={transl('form.created_at.label')} value={new Date(ticket.createdAt).toLocaleString()} />
         <TicketFormControl isAdmin={isAdmin} isOwner={isOwner} ticket={ticket} ticketId={ticketId} />
