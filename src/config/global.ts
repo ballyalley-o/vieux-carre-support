@@ -44,7 +44,8 @@ const envSchema = z.object({
   ENCRYPTION_KEY             : z.string().min(1, _msg('ENCRYPTION_KEY')),
   GOOGLE_CLIENT_ID           : z.string().min(1, _msg('GOOGLE_CLIENT_ID')),
   GOOGLE_CLIENT_SECRET       : z.string().min(1, _msg('GOOGLE_CLIENT_SECRET')),
-  SALT_ROUNDS                : z.string().min(1, _msg('SALT_ROUNDS'))
+  SALT_ROUNDS                : z.string().min(1, _msg('SALT_ROUNDS')),
+  NEXTAUTH_STRATEGY          : z.string().min(1, _msg('NEXTAUTH_STRATEGY'))
 })
 
 let parsedEnv: z.infer<typeof envSchema> | null = null
@@ -83,7 +84,8 @@ function getEnv() {
       ENCRYPTION_KEY             : '',
       GOOGLE_CLIENT_ID           : '',
       GOOGLE_CLIENT_SECRET       : '',
-      SALT_ROUNDS                : 10
+      SALT_ROUNDS                : 10,
+      NEXTAUTH_STRATEGY          : 'jwt'
     }
   }
 
@@ -145,6 +147,9 @@ export const GLOBAL = {
   },
   get VERCEL_URL() {
     return getEnv().VERCEL_URL
+  },
+  get NEXTAUTH_STRATEGY() {
+    return getEnv().NEXTAUTH_STRATEGY
   },
   LIMIT: {
     PAGE_SIZE: 7
