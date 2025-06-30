@@ -11,14 +11,12 @@ import { CODE } from 'lib/constant'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const TAG    = 'Auth.Action'
 const MODULE = 'auth'
-export async function signUp(prevState: AppResponse, formData: FormData): Promise<AppResponse> {
+export async function signUp(data: SignUp): Promise<AppResponse> {
     try {
-        const name     = formData.get('name') as string
-        const email    = formData.get('email') as string
-        const password = formData.get('password') as string
+        const { name, email, password } = data
 
         const isAdmin = GLOBAL.ADMIN_EMAILS.includes(email)
-        const role    = isAdmin ? UserRole.ADMIN : UserRole.USER
+        const role    = isAdmin ? UserRole.admin : UserRole.user
 
         if (!name || !email || !password) {
             const _errorMessage = transl('error.validation_error', { error: 'missing fields' })
@@ -61,19 +59,16 @@ export async function signOut(): Promise<AppResponse> {
     }
 }
 
-export async function signIn(prevState: AppResponse, formData: FormData): Promise<AppResponse> {
+export async function signIn(data: SignIn)  {
     try {
-        const email    = formData.get('email') as string
-        const password = formData.get('password') as string
+        const { email, password } = data
 
         if (!email || !password) {
             const _errorMessage = transl('error.validation_error', { error: 'missing sign-in fields' })
             SystemLogger.sentryLogEvent(_errorMessage, MODULE, { email }, 'warning')
             return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
         }
-
         const user = await prisma.user.findUnique({ where: { email }})
-
         if (!user || !user.password) {
             const _errorMessage = transl('error.failed_sign_in', { email })
             SystemLogger.sentryLogEvent(_errorMessage, MODULE, { email }, 'warning')
@@ -95,6 +90,7 @@ export async function signIn(prevState: AppResponse, formData: FormData): Promis
         const { password: _, ...safeUser } = user
         return SystemLogger.response(true, transl('success.signed_in'), CODE.OK, safeUser)
     } catch (error) {
+        console.log("error", error)
         const _errorMessage = transl('error.unexpected_error')
         SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
         return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
