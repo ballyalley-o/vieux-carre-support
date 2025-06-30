@@ -103,7 +103,7 @@ export async function updateTicketStatus(ticketId: number, status: TicketStatus)
     }
 
     const user   = await getSession()
-    if (user?.role !== UserRole.ADMIN && user?.id !== ticket.userId) {
+    if (user?.role !== UserRole.admin && user?.id !== ticket.userId) {
       SystemLogger.sentryLogEvent(transl('error.unauthorized'), MODULE, { user }, 'warning')
       return SystemLogger.response(false, transl('error.unauthorized_user'), CODE.UNAUTHORIZED, { user })
     }
@@ -139,7 +139,7 @@ export async function closeTicket(prevState: AppResponse, formData: FormData): P
 
     const ticket = await prisma.ticket.findUnique({ where: { id: ticketId }})
 
-    if (!ticket || ticket.userId !== user.id || user.role !== UserRole.ADMIN) {
+    if (!ticket || ticket.userId !== user.id || user.role !== UserRole.admin) {
       const _errorMessage = transl('error.unauthorized_ticket_close')
       SystemLogger.sentryLogEvent(_errorMessage, MODULE, { ticketId, userId: user.id }, 'warning')
       return SystemLogger.response(false, transl('error.unauthorized_user'), CODE.UNAUTHORIZED, {})
