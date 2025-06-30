@@ -1,7 +1,7 @@
 'use client'
 
 import { Fragment, useState, useEffect, useRef } from 'react'
-import { TicketStatus, UserRole } from '@prisma/client'
+import { TicketStatus } from '@prisma/client'
 import { updateTicketStatus } from 'action/ticket.action'
 import { toast } from 'sonner'
 import { FaChevronDown } from 'react-icons/fa'
@@ -11,7 +11,7 @@ import { cn, formatText, transl } from 'lib/utility'
 interface TicketStatusSelectorProps {
   ticketId      : number
   currentStatus : TicketStatus
-  userRole     ?: UserRole
+  userRole     ?: UserRoleType
 }
 
 function TicketStatusSelector({ ticketId, currentStatus, userRole }: TicketStatusSelectorProps) {
@@ -33,7 +33,7 @@ function TicketStatusSelector({ ticketId, currentStatus, userRole }: TicketStatu
     }
   }, [])
 
-  if (userRole !== UserRole.admin) {
+  if (userRole !== 'admin') {
     return (
       <div className={''}>
         <h2 className={'text-lg font-semibold mb-2'}>{transl('status.label')}</h2>
