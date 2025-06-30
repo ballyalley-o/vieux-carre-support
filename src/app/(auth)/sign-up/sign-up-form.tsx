@@ -18,7 +18,7 @@ interface SignUpFormProps {
 
 const SignUpForm = ({ action }: SignUpFormProps) => {
     const router = useRouter()
-    const form   = useForm<SignIn>({ resolver: zodResolver(SignUpSchema), defaultValues: { email: '', password: '' } })
+    const form   = useForm<SignUp>({ resolver: zodResolver(SignUpSchema), defaultValues: { email: '', password: '' } })
 
     const { control, register, formState: { isSubmitting }, handleSubmit } = form
     const onSubmit: SubmitHandler<SignIn> = async (data) => {

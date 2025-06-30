@@ -4,7 +4,7 @@ import { PATH_DIR } from "vcs.dir"
 import { useRouter, useSearchParams } from 'next/navigation'
 import { SubmitHandler, FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { signUp } from "action/auth.action"
+import { signIn } from "action/auth.action"
 import { toast } from "sonner"
 import { AppAuthRedir } from 'component/shared/app'
 import { Button } from 'component/shared/button'
@@ -14,7 +14,7 @@ import { SignInSchema } from 'lib/schema'
 import { delay } from 'lib/utility'
 
 interface SignInFormProps {
-  action: typeof signUp
+  action: typeof signIn
 }
 
 const SignInForm = ({ action }: SignInFormProps) => {

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { en } from 'vcs.locale'
 import { z, ZodSchema } from 'zod'
-import { Control,  Path, useForm } from 'react-hook-form'
+import { Control, Path, useForm } from 'react-hook-form'
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import { useFormField } from 'hook'
 import { transl, cn } from 'lib/utility'
