@@ -40,7 +40,11 @@ const envSchema = z.object({
   HASH_TIME_COST             : z.string().min(1, _msg('HASH_TIME_COST')),
   HASH_PARALLELISM           : z.string().min(1, _msg('HASH_PARALLELISM')),
   ADMIN_EMAILS               : z.string().min(1, _msg('ADMIN_EMAILS')),
-  VERCEL_URL                 : z.string().min(1, _msg('VERCEL_URL'))
+  VERCEL_URL                 : z.string().min(1, _msg('VERCEL_URL')),
+  ENCRYPTION_KEY             : z.string().min(1, _msg('ENCRYPTION_KEY')),
+  GOOGLE_CLIENT_ID           : z.string().min(1, _msg('GOOGLE_CLIENT_ID')),
+  GOOGLE_CLIENT_SECRET       : z.string().min(1, _msg('GOOGLE_CLIENT_SECRET')),
+  SALT_ROUNDS                : z.string().min(1, _msg('SALT_ROUNDS'))
 })
 
 let parsedEnv: z.infer<typeof envSchema> | null = null
@@ -75,7 +79,11 @@ function getEnv() {
       HASH_TIME_COST             : '2',
       HASH_PARALLELISM           : '1',
       ADMIN_EMAILS               : '',
-      VERCEL_URL                 : ''
+      VERCEL_URL                 : '',
+      ENCRYPTION_KEY             : '',
+      GOOGLE_CLIENT_ID           : '',
+      GOOGLE_CLIENT_SECRET       : '',
+      SALT_ROUNDS                : 10
     }
   }
 
@@ -89,6 +97,9 @@ export const GLOBAL = {
   },
   get APP_DESCRIPTION() {
     return getEnv().NEXT_PUBLIC_APP_DESCRIPTION
+  },
+  get ENCRYPTION_KEY() {
+    return getEnv().ENCRYPTION_KEY
   },
   get SERVER_URL() {
     return getEnv().NEXT_PUBLIC_SERVER_URL
@@ -114,12 +125,19 @@ export const GLOBAL = {
       MAX_AGE   : 60 * 60 * 24
     }
   },
+  get GOOGLE() {
+    return {
+      CLIENT_ID    : getEnv().GOOGLE_CLIENT_ID,
+      CLIENT_SECRET: getEnv().GOOGLE_CLIENT_SECRET
+    }
+  },
   get HASH() {
     return {
       TYPE       : getEnv().HASH_TYPE,
       MEMORY_COST: getEnv().HASH_MEMORY_COST,
       TIME_COST  : getEnv().HASH_TIME_COST,
-      PARALLELISM: getEnv().HASH_PARALLELISM
+      PARALLELISM: getEnv().HASH_PARALLELISM,
+      SALT_ROUNDS: getEnv().SALT_ROUNDS
     }
   },
   get ADMIN_EMAILS() {
