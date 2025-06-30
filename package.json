@@ -9,7 +9,6 @@
     "start": "next start",
     "lint": "next lint",
     "clean": "rm -rf .next",
-    "postinstall": "prisma generate",
     "build:tokens": "style-dictionary build --config style-dictionary.config.mjs"
   },
   "dependencies": {
