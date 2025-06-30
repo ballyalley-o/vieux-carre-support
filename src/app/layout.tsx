@@ -27,7 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${interTight.className} antialiased`}>
         <Navbar />
           {children}
-        <Toaster position={'top-right'} className={'rounded-none'} richColors />
+        <Toaster position={'top-center'} className={'rounded-none'} richColors />
       </body>
     </html>
   )
