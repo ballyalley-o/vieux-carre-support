@@ -3,7 +3,6 @@
 import { GLOBAL } from 'vcs'
 import { prisma } from 'vcs.db'
 import bcrypt from 'bcryptjs'
-import { UserRole } from '@prisma/client'
 import { signAuthToken, setAuthCookie, removeAuthCookie } from 'lib/auth'
 import { SystemLogger, transl } from 'lib/utility'
 import { CODE } from 'lib/constant'
@@ -16,7 +15,7 @@ export async function signUp(data: SignUp): Promise<AppResponse> {
         const { name, email, password } = data
 
         const isAdmin = GLOBAL.ADMIN_EMAILS.includes(email)
-        const role    = isAdmin ? UserRole.admin : UserRole.user
+        const role    = isAdmin ? 'admin' : 'user'
 
         if (!name || !email || !password) {
             const _errorMessage = transl('error.validation_error', { error: 'missing fields' })
