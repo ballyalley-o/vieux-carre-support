@@ -3,7 +3,7 @@
 import { Fragment, JSX, useActionState, useState, useEffect } from "react"
 import { PATH_DIR } from "vcs.dir"
 import { useRouter } from 'next/navigation'
-import { TicketPriority } from '@prisma/client'
+import { TicketPriority } from 'vieux-carre.authenticate'
 import { createTicket } from "action/ticket.action"
 import { toast } from "sonner"
 import { FaCircle } from "react-icons/fa"

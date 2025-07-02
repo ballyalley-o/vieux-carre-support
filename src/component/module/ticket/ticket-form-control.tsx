@@ -1,6 +1,6 @@
 import { Fragment } from "react"
 import { PATH_DIR } from "vcs.dir"
-import { Ticket, TicketStatus } from '@prisma/client'
+import { Ticket, TicketStatus } from 'vieux-carre.authenticate'
 import { MdArrowBack } from "react-icons/md"
 import { TicketCloseButton } from 'component/module/ticket'
 import { Button } from "component/shared/button"

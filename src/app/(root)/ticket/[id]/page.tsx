@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { User } from '@prisma/client'
+import { User } from 'vieux-carre.authenticate'
 import { getTicketById } from 'action/ticket.action'
 import { TicketStatusSelector, TicketCardTitle, TicketFormControl } from 'component/module/ticket'
 import { BackButton } from 'component/shared/button'

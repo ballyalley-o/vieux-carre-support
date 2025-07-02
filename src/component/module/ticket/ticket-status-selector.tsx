@@ -1,7 +1,7 @@
 'use client'
 
 import { Fragment, useState, useEffect, useRef } from 'react'
-import { TicketStatus } from '@prisma/client'
+import { TicketStatus } from 'vieux-carre.authenticate'
 import { updateTicketStatus } from 'action/ticket.action'
 import { toast } from 'sonner'
 import { FaChevronDown } from 'react-icons/fa'
