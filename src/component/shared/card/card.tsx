@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { TicketStatus } from 'vieux-carre.authenticate'
+import { TicketStatus } from 'vieux-carre.prisma'
 import { cn } from 'lib/utility'
 
 interface CardProps {

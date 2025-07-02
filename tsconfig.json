@@ -29,7 +29,8 @@
       "vcs.design-gen-css"      : ["./src/design/token/css/token.css"],
       "vcs.dir"                 : ["./src/config/dir"],
       "vcs.nav"                 : ["./src/config/nav.ts"],
-      "vieux-carre.authenticate": ["./vieux-carre.authenticate"]
+      "vieux-carre.authenticate": ["./vieux-carre.authenticate"],
+      "vieux-carre.prisma"      : ["./vieux-carre.authenticate/generated"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/**/*.ts", "src/component/shared**/*.tsx", "src/interface/**/*.ts", "src/types/**/*.ts"],

@@ -1,6 +1,6 @@
 import { PATH_DIR } from "vcs.dir"
 import Link from "next/link"
-import type { Ticket } from 'vieux-carre.authenticate'
+import type { Ticket } from 'vieux-carre.prisma'
 import { FaCircle } from 'react-icons/fa'
 import { Card } from "component/shared/card"
 import { formatTicketId, formatText, transl, cn } from "lib/utility"

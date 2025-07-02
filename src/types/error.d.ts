@@ -1,5 +1,5 @@
 import { ZodError } from "zod"
-import { Prisma } from 'vieux-carre.authenticate'
+import { Prisma } from 'vieux-carre.prisma'
 
 declare global {
     export type AppError =

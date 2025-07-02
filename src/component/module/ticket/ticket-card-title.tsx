@@ -1,4 +1,4 @@
-import { TicketPriority } from "vieux-carre.authenticate"
+import { TicketPriority } from 'vieux-carre.prisma'
 import { FaCircle } from "react-icons/fa"
 import { TitleWithIcon } from "component/shared/title"
 import { formatText, cn } from "lib/utility"
