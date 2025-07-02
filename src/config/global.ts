@@ -72,7 +72,7 @@ function getEnv() {
       DB_PASSWORD                : '',
       SENTRY_AUTH_TOKEN          : '',
       AUTH_SECRET                : '',
-      AUTH_TOKEN_NAME            : '',
+      AUTH_TOKEN_NAME            : 'next-auth.session-token',
       AUTH_ALG                   : '',
       AUTH_EXP_TIME              : '',
       HASH_TYPE                  : 'argon2id',
@@ -139,7 +139,7 @@ export const GLOBAL = {
       MEMORY_COST: getEnv().HASH_MEMORY_COST,
       TIME_COST  : getEnv().HASH_TIME_COST,
       PARALLELISM: getEnv().HASH_PARALLELISM,
-      SALT_ROUNDS: getEnv().SALT_ROUNDS
+      SALT_ROUNDS: Number(getEnv().SALT_ROUNDS)
     }
   },
   get ADMIN_EMAILS() {
