@@ -9,6 +9,8 @@ export async function middleware(request: NextRequest) {
   const sessionCookie   = cookiesObject.get(process.env.NODE_ENV === 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token')
   const isAuthenticated = !!sessionCookie
 
+  console.log('Session cookie in support app:', sessionCookie)
+
   if (isProtected && !isAuthenticated) {
     const signInUrl = new URL('/sign-in', request.url)
     signInUrl.searchParams.set('callbackUrl', request.url)
@@ -16,9 +18,9 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!cookiesObject.get('sessionBagId')) {
-    const sessionBagId = crypto.randomUUID()
+    const sessionBagId      = crypto.randomUUID()
     const newRequestHeaders = new Headers(request.headers)
-    const response = NextResponse.next({ request: { headers: newRequestHeaders } })
+    const response          = NextResponse.next({ request: { headers: newRequestHeaders } })
     response.cookies.set('sessionBagId', sessionBagId)
     return response
   }
