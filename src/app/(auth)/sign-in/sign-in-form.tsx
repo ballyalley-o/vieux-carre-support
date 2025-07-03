@@ -4,7 +4,7 @@ import { PATH_DIR } from "vcs.dir"
 import { useRouter, useSearchParams } from 'next/navigation'
 import { SubmitHandler, FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { signIn } from "action/auth.action"
+import { signInWithCredentials } from 'action/auth.action'
 import { toast } from "sonner"
 import { AppAuthRedir } from 'component/shared/app'
 import { Button } from 'component/shared/button'
@@ -14,7 +14,7 @@ import { SignInSchema } from 'lib/schema'
 import { delay } from 'lib/utility'
 
 interface SignInFormProps {
-  action: typeof signIn
+  action: typeof signInWithCredentials
 }
 
 const SignInForm = ({ action }: SignInFormProps) => {
@@ -28,10 +28,14 @@ const SignInForm = ({ action }: SignInFormProps) => {
    const onSubmit: SubmitHandler<SignIn> = async (data) => {
     try {
       const response = await action(data)
-      await delay(500)
-      toast.success(response.message)
-      router.push(callbackUrl)
-      router.refresh()
+      if (response.success) {
+        await delay(500)
+        toast.success(response.message)
+        router.push(callbackUrl)
+        router.refresh()
+      } else {
+        toast.error(response.message)
+      }
     } catch (error) {
       console.log('error: ', error)
       toast.error((error as AppError)?.message)
