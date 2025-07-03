@@ -47,7 +47,9 @@ export async function setAuthCookie(token: string) {
 
 export async function getAuthCookie() {
   const cookieStore = await cookies()
+  console.log('cookieStore:', cookieStore)
   const token = cookieStore.get(cookieName)
+  console.log('cookie:'), token
   return token?.value
 }
 
