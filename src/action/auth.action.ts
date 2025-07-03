@@ -3,7 +3,7 @@
 import { GLOBAL } from 'vcs'
 import { prisma } from 'vcs.db'
 import bcrypt from 'bcryptjs'
-import { signAuthToken, setAuthCookie, removeAuthCookie } from 'lib/auth'
+import { signIn, signOut } from 'vieux-carre.authenticate'
 import { SystemLogger, transl } from 'lib/utility'
 import { CODE } from 'lib/constant'
 
@@ -33,8 +33,8 @@ export async function signUp(data: SignUp): Promise<AppResponse> {
         const hashedPassword = await bcrypt.hash(password, GLOBAL.HASH.SALT_ROUNDS)
 
         const user  = await prisma.user.create({ data: { name, email, password: hashedPassword, role }})
-        const token = await signAuthToken({ userId: user.id })
-        await setAuthCookie(token)
+
+        await signIn('credentials', { email, password, redirect: false })
         const _message = transl('success.created_default', { value: 'User signed up', id: user.id })
         SystemLogger.sentryLogEvent(_message, MODULE, { userId: user.id, email }, 'info')
         return SystemLogger.response(true, _message, CODE.CREATED, user)
@@ -45,20 +45,11 @@ export async function signUp(data: SignUp): Promise<AppResponse> {
     }
 }
 
-export async function signOut(): Promise<AppResponse> {
-    try {
-        await removeAuthCookie()
-        const _message = transl('success.user_signed_out')
-        SystemLogger.sentryLogEvent(_message, MODULE, {}, 'info')
-        return SystemLogger.response(true, _message, CODE.OK, {})
-    } catch (error) {
-        const _errorMessage = transl('error.failed_sign_out')
-        SystemLogger.sentryLogEvent(_errorMessage, MODULE, {}, 'error', error)
-        return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
-    }
+export async function signOutUser() {
+    await signOut()
 }
 
-export async function signIn(data: SignIn)  {
+export async function signInWithCredentials(data: SignIn)  {
     try {
         const { email, password } = data
 
@@ -82,11 +73,12 @@ export async function signIn(data: SignIn)  {
             return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
         }
 
-        const token = await signAuthToken({ userId: user.id })
-        await setAuthCookie(token)
+        // const token = await signAuthToken({ userId: user.id })
+        // await setAuthCookie(token)
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password: _, ...safeUser } = user
+        await signIn('credentials', { email, password, redirect: false })
         return SystemLogger.response(true, transl('success.signed_in'), CODE.OK, safeUser)
     } catch (error) {
         console.log("error", error)
