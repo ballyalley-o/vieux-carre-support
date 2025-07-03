@@ -73,9 +73,6 @@ export async function signInWithCredentials(data: SignIn)  {
             return SystemLogger.response(false, transl('error.invalid_credentials'), CODE.NOT_FOUND, {})
         }
 
-        // const token = await signAuthToken({ userId: user.id })
-        // await setAuthCookie(token)
-
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password: _, ...safeUser } = user
         await signIn('credentials', { email, password, redirect: false })
