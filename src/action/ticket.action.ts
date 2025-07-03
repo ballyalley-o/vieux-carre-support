@@ -4,20 +4,20 @@ import { GLOBAL } from 'vcs'
 import { prisma } from 'vcs.db'
 import { PATH_DIR } from 'vcs.dir'
 import { revalidatePath } from 'next/cache'
-import { Prisma, TicketPriority, TicketStatus } from 'vieux-carre.authenticate'
+import { auth } from 'vieux-carre.authenticate'
+import { Prisma, TicketPriority, TicketStatus } from 'vieux-carre.prisma'
 import { SystemLogger } from "lib/utility/app-logger"
 import { CODE, KEY } from "lib/constant"
 import { transl, formatToPlainObject } from 'lib/utility'
-import { getSession } from 'lib/session'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const TAG    = 'Ticket.Action'
 const MODULE = 'ticket'
 export async function createTicket(prevState: AppResponse, formData: FormData): AppResponseType {
     try {
-        const user = await getSession()
+        const session = await auth()
 
-        if (!user) {
+        if (!session?.user) {
           SystemLogger.sentryLogEvent(transl('error.unauthorized_ticket_create'), MODULE, {}, 'warning')
           return SystemLogger.response(false, transl('error.unable_create_ticket'), CODE.UNAUTHORIZED, {})
         }
@@ -25,7 +25,7 @@ export async function createTicket(prevState: AppResponse, formData: FormData): 
         const description = formData.get('description') as string
         const priority    = formData.get('priority') as TicketPriority
 
-        const _data = { subject, description, priority, user: { connect: { id: user.id }} }
+        const _data = { subject, description, priority, user: { connect: { id: session?.user.id }} }
 
         if (!subject || !description || !priority) {
             SystemLogger.sentryLogEvent(transl('error.missing_field'), MODULE, _data, 'warning')
@@ -102,8 +102,12 @@ export async function updateTicketStatus(ticketId: number, status: TicketStatus)
       return SystemLogger.response(false, _errorMessage, CODE.NOT_FOUND, {})
     }
 
-    const user   = await getSession()
-    if (user?.role !== 'admin' && user?.id !== ticket.userId) {
+    const session = await auth()
+    const user    = session?.user
+    const isAdmin = user?.role === 'admin'
+    const isOwner = user?.id === ticket?.userId
+
+    if (!isAdmin && !isOwner) {
       SystemLogger.sentryLogEvent(transl('error.unauthorized'), MODULE, { user }, 'warning')
       return SystemLogger.response(false, transl('error.unauthorized_user'), CODE.UNAUTHORIZED, { user })
     }
@@ -129,7 +133,12 @@ export async function closeTicket(prevState: AppResponse, formData: FormData): P
       return SystemLogger.response(false, _errorMessage, CODE.BAD_REQUEST, {})
     }
 
-    const user = await getSession()
+    const ticket  = await prisma.ticket.findUnique({ where: { id: ticketId } })
+
+    const session = await auth()
+    const user    = session?.user
+    const isAdmin = user?.role === 'admin'
+    const isOwner = user?.id   === ticket?.userId
 
     if (!user) {
       const _errorMessage = transl('error.unauthorized')
@@ -137,9 +146,7 @@ export async function closeTicket(prevState: AppResponse, formData: FormData): P
       return SystemLogger.response(false, _errorMessage, CODE.UNAUTHORIZED, {})
     }
 
-    const ticket = await prisma.ticket.findUnique({ where: { id: ticketId }})
-
-    if (!ticket || ticket.userId !== user.id || user.role !== 'admin') {
+    if (!ticket || (!isAdmin && !isOwner)) {
       const _errorMessage = transl('error.unauthorized_ticket_close')
       SystemLogger.sentryLogEvent(_errorMessage, MODULE, { ticketId, userId: user.id }, 'warning')
       return SystemLogger.response(false, transl('error.unauthorized_user'), CODE.UNAUTHORIZED, {})
