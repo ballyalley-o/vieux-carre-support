@@ -12,8 +12,13 @@ export async function getSession() {
         if (!token) return null
 
         const payload = await verifyAuthToken<AuthPayload>(token)
+
+        console.log('payload: ', payload)
+
         if (!payload?.userId) return null
         const user = await prisma.user.findUnique({ where: { id: payload.userId }, select: { id: true, email: true, name: true, role: true } })
+
+        console.log('user: ', user)
         return user
     } catch (error) {
         console.error(transl('error.failed_fetch_default', { value: 'User' }), error)
