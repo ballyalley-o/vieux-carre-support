@@ -7,7 +7,7 @@ const Navbar = async () => {
     return (
       <nav className={'bg-gray-200 px-6 py-4 flex justify-between items-center'}>
         <AppLogoNavbar />
-        <NavToolbar user={session} />
+        <NavToolbar session={session} />
       </nav>
     )
 }
