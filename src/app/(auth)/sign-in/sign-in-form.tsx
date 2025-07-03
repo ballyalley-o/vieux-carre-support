@@ -46,7 +46,7 @@ const SignInForm = ({ action }: SignInFormProps) => {
       <div className={cn('w-auto md:w-[500px] max-w-lg rounded-sm p-8 transition-colors duration-300 ease-in-out ')}>
         <h1 className={'text-2xl font-bold mb-6 text-center text-black'}>{transl('sign_in.label')}</h1>
         <FormProvider {...form}>
-          <form method={'POST'} onSubmit={handleSubmit(onSubmit)} className={'space-y-4 text-gray-700'}>
+          <form onSubmit={handleSubmit(onSubmit)} className={'space-y-4 text-gray-700'}>
             <RHFFormField control={control} name={'email'} formKey={'email'} disabled={isSubmitting} withWrapper />
             <RHFPasswordField control={control} register={register} name={'password'} formKey={'password'} disabled={isSubmitting} withWrapper />
             <Button variant={'default'} label={transl('sign_in.label')} loadingLabel={transl('sign_in.loading')} loading={isSubmitting} fullWidth />
