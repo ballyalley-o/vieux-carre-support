@@ -7,10 +7,10 @@ import { Button } from "component/shared/button"
 import { transl } from "lib/utility"
 
 interface TicketFormControlProps {
-  ticket  : Ticket
-  ticketId: number
-  isAdmin : boolean | null
-  isOwner : boolean | null
+  ticket   : Ticket
+  ticketId : number
+  isAdmin ?: boolean | null
+  isOwner ?: boolean | null
 }
 
 const TicketFormControl = ({ isAdmin, isOwner,  ticket, ticketId }: TicketFormControlProps) => {
