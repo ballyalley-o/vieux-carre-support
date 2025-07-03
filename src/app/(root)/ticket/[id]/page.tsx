@@ -1,10 +1,9 @@
 import { notFound } from 'next/navigation'
-import { User } from 'vieux-carre.prisma'
+import { auth } from 'vieux-carre.authenticate'
 import { getTicketById } from 'action/ticket.action'
 import { TicketStatusSelector, TicketCardTitle, TicketFormControl } from 'component/module/ticket'
 import { BackButton } from 'component/shared/button'
 import { FormViewField } from 'component/shared/form'
-import { getSession } from 'lib/session'
 import { cn, SystemLogger, transl, unformatTicketId, formatText } from 'lib/utility'
 
 interface TicketPageProps {
@@ -16,7 +15,8 @@ const TicketPage = async ({ params }: TicketPageProps) => {
   const { id }   = await params
   const ticketId = unformatTicketId(id)
   const ticket   = await getTicketById(ticketId)
-  const user     = await getSession()
+  const session  = await auth()
+  const user     = session?.user
 
   const isAdmin = user && user.role === 'admin'
   const isOwner = user && user.id === ticket.userId
@@ -40,7 +40,7 @@ const TicketPage = async ({ params }: TicketPageProps) => {
       <div className={'w-auto md:w-[500px] mx-auto bg-blue-50 rounded-sm border border-gray-200 p-8 space-y-6'}>
         <TicketCardTitle subject={ticket.subject} priority={ticket.priority} />
         <FormViewField label={transl('form.description.label')} value={ticket.description} />
-        <TicketStatusSelector ticketId={ticketId} currentStatus={ticket.status} userRole={user ? (user as User).role as UserRoleType : 'user'} />
+        <TicketStatusSelector ticketId={ticketId} currentStatus={ticket.status} userRole={user ? user.role as UserRoleType : 'user'} />
         <FormViewField label={transl('priority.label')} value={formatText(ticket.priority, 'capitalize')} className={cn('text-xl font-bold', `text-priority-${formatText(ticket.priority, 'lowercase')}`)} />
         <FormViewField label={transl('form.created_at.label')} value={new Date(ticket.createdAt).toLocaleString()} />
         <TicketFormControl isAdmin={isAdmin} isOwner={isOwner} ticket={ticket} ticketId={ticketId} />

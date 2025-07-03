@@ -8,14 +8,14 @@ import { Button, SignOutButton } from 'component/shared/button'
 import { transl } from 'lib/utility'
 
 type NavToolbarProps = {
-  user: Session | null
+  session: Session | null
 }
-const NavToolbar = ({ user }: NavToolbarProps) => {
+const NavToolbar = ({ session }: NavToolbarProps) => {
     const pathname = usePathname()
     const noShow   = pathname !== '/sign-in' && pathname !== '/sign-up'
     return (
          <div className={'flex items-center space-x-4'}>
-         {!user ? (
+         {!session?.user ? (
             noShow && <Button link href={PATH_DIR.AUTH.sign_in} variant={'primary'} className={'text-white transition'} label={transl('sign_in.label')} />
             ) : (
             <Fragment>

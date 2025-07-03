@@ -1,11 +1,11 @@
-import NewTicketForm  from "app/(root)/ticket/new/new-ticket-form"
-import { createTicket } from "action/ticket.action"
-import { getSession } from "lib/session"
+import { auth } from "vieux-carre.authenticate"
+import { PATH_DIR } from "vcs.dir"
 import { redirect } from "next/navigation"
-import { PATH_DIR } from "config/dir"
+import { createTicket } from "action/ticket.action"
+import NewTicketForm  from "app/(root)/ticket/new/new-ticket-form"
 
 const NewTicketPage = async () => {
-  const user = await getSession()
+  const user = await auth()
   if (!user) {
      const callbackUrl = encodeURIComponent(PATH_DIR.TICKET.new)
      redirect(`${PATH_DIR.AUTH.sign_in}?callbackUrl=${callbackUrl}`)
