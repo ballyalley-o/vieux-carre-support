@@ -1,5 +1,5 @@
 import { GLOBAL } from 'vcs'
-import { PrismaClient } from 'vieux-carre.authenticate'
+import { PrismaClient } from 'vieux-carre.prisma'
 import { KEY } from 'lib/constant'
 
 
