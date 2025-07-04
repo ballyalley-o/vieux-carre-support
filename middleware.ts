@@ -26,8 +26,8 @@ export async function middleware(request: NextRequest) {
   }
 
   if (isProtected && !isAuthenticated) {
-    const signInUrl = new URL('/sign-in', request.url)
-    signInUrl.searchParams.set('callbackUrl', request.url)
+    const signInUrl = new URL(`${process.env.NEXT_PUBLIC_SERVER_URL_MAIN}/sign-in`, request.url)
+    signInUrl.searchParams.set('callbackUrl', request.nextUrl.href)
     return NextResponse.redirect(signInUrl)
   }
 
