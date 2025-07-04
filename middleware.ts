@@ -24,9 +24,6 @@ export async function middleware(request: NextRequest) {
       console.error('JWT verification failed in middleware:', err)
     }
   }
-  // const isAuthenticated = !!sessionCookie
-
-  console.log('Session cookie in support app:', sessionCookie)
 
   if (isProtected && !isAuthenticated) {
     const signInUrl = new URL('/sign-in', request.url)

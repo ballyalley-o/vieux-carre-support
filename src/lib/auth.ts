@@ -27,8 +27,6 @@ export async function signAuthToken(payload: JWTPayload) {
 export async function verifyAuthToken<T>(token: string): Promise<T> {
     try {
         const { payload } = await jwtVerify(token, secret)
-        console.log('TOKEN at verifyAuthToken', token)
-        console.log('SECRET at verifyAuthToken', secret)
         return payload as T
     } catch (error: unknown) {
         const _errorMessage = transl('error.failed_decrypt_token')
@@ -49,9 +47,7 @@ export async function setAuthCookie(token: string) {
 
 export async function getAuthCookie() {
   const cookieStore = await cookies()
-  console.log('cookieStore:', cookieStore)
   const token = cookieStore.get(cookieName)
-  console.log('cookie:',token)
   return token?.value
 }
 
