@@ -45,7 +45,9 @@ const envSchema = z.object({
   GOOGLE_CLIENT_ID           : z.string().min(1, _msg('GOOGLE_CLIENT_ID')),
   GOOGLE_CLIENT_SECRET       : z.string().min(1, _msg('GOOGLE_CLIENT_SECRET')),
   SALT_ROUNDS                : z.string().min(1, _msg('SALT_ROUNDS')),
-  NEXTAUTH_STRATEGY          : z.string().min(1, _msg('NEXTAUTH_STRATEGY'))
+  NEXTAUTH_STRATEGY          : z.string().min(1, _msg('NEXTAUTH_STRATEGY')),
+  NEXT_PUBLIC_APP_NAME_MAIN  : z.string().min(1, _msg('NEXT_PUBLIC_APP_NAME_MAIN')),
+  NEXT_PUBLIC_SERVER_URL_MAIN: z.string().min(1, _msg('NEXT_PUBLIC_SERVER_URL_MAIN'))
 })
 
 let parsedEnv: z.infer<typeof envSchema> | null = null
@@ -85,7 +87,9 @@ function getEnv() {
       GOOGLE_CLIENT_ID           : '',
       GOOGLE_CLIENT_SECRET       : '',
       SALT_ROUNDS                : 10,
-      NEXTAUTH_STRATEGY          : 'jwt'
+      NEXTAUTH_STRATEGY          : 'jwt',
+      NEXT_PUBLIC_APP_NAME_MAIN  : '',
+      NEXT_PUBLIC_SERVER_URL_MAIN: ''
     }
   }
 
@@ -97,6 +101,9 @@ export const GLOBAL = {
   get APP_NAME() {
     return getEnv().NEXT_PUBLIC_APP_NAME
   },
+  get APP_NAME_MAIN() {
+    return getEnv().NEXT_PUBLIC_APP_NAME_MAIN
+  },
   get APP_DESCRIPTION() {
     return getEnv().NEXT_PUBLIC_APP_DESCRIPTION
   },
@@ -105,6 +112,9 @@ export const GLOBAL = {
   },
   get SERVER_URL() {
     return getEnv().NEXT_PUBLIC_SERVER_URL
+  },
+  get SERVER_URL_MAIN() {
+    return getEnv().NEXT_PUBLIC_SERVER_URL_MAIN
   },
   get NODE_ENV() {
     return getEnv().NODE_ENV
