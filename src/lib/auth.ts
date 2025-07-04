@@ -10,7 +10,7 @@ const MODULE = formatText(TAG, 'lowercase')
 
 const { SECRET, TOKEN_NAME, ALG, EXP_TIME, MAX_AGE } = GLOBAL.AUTH
 
-const secret = new TextEncoder().encode(SECRET)
+const secret     = new TextEncoder().encode(SECRET)
 const cookieName = TOKEN_NAME
 
 export async function signAuthToken(payload: JWTPayload) {
