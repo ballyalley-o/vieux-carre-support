@@ -4,7 +4,6 @@ import { Fragment } from 'react'
 import { PATH_DIR } from 'vcs.dir'
 import { Session } from 'next-auth'
 import { usePathname } from 'next/navigation'
-// import { User } from ''
 import { Button, SignOutButton } from 'component/shared/button'
 import { transl } from 'lib/utility'
 
